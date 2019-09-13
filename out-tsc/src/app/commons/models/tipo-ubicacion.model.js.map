@@ -1,1 +1,0 @@
-{"version":3,"file":"tipo-ubicacion.model.js","sourceRoot":"","sources":["../../../../../../src/app/commons/models/tipo-ubicacion.model.ts"],"names":[],"mappings":"AAAA;IAKE,uBAAY,MAIX;QARM,OAAE,GAAG,CAAC,CAAC;QACP,gBAAW,GAAG,EAAE,CAAC;QACjB,WAAM,GAAG,IAAI,CAAC;QAOnB,IAAI,MAAM,EAAE;YAAE,MAAM,CAAC,MAAM,CAAC,IAAI,EAAE,MAAM,CAAC,CAAC;SAAE;IAC9C,CAAC;IACH,oBAAC;AAAD,CAAC,AAZD,IAYC"}
