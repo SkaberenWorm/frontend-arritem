@@ -17,11 +17,9 @@ import { BlockUIModule } from 'ng-block-ui';
 import { BlockUIHttpModule } from 'ng-block-ui/http';
 import { NgbPaginationModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { RolClienteDenyGuard } from './guards/rol-cliente-deny.guard';
 import { MatSelectModule, MatInputModule } from '@angular/material';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RolFuncionarioGuard } from './guards/rol-funcionario.guard';
-import { RolClienteGuard } from './guards/rol-cliente.guard';
+import { RolAdminAndFuncionarioGuard } from './guards/rol-admin-and-funcionario.guard';
 @NgModule({
   declarations: [FieldErrorDisplayComponent],
   imports: [
@@ -51,9 +49,7 @@ import { RolClienteGuard } from './guards/rol-cliente.guard';
     },
     LoginGuard,
     RolAdminGuard,
-    RolFuncionarioGuard,
-    RolClienteDenyGuard,
-    RolClienteGuard,
+    RolAdminAndFuncionarioGuard,
     AuthGuard,
     Util,
     UtilFormating,

@@ -58,8 +58,6 @@ import { CommonsServiceModule } from './commons/commons-service.module';
 import { EffectsModule } from '@ngrx/effects';
 import { appEffect } from './store/effects';
 import localeES from '@angular/common/locales/es-CL';
-import { ClienteLayoutComponent } from './layouts/cliente-layout/cliente-layout.component';
-import { FuncionarioLayoutComponent } from './layouts/funcionario-layout/funcionario-layout.component';
 import { FooterClienteModule } from './shared/footer-cliente/footer-cliente.module';
 import { GeneralLayoutComponent } from './layouts/general/general-layout.component';
 
@@ -134,7 +132,7 @@ export class MaterialModule {}
       useValue: 'es-CL'
     }
   ],
-  declarations: [AppComponent, AdminLayoutComponent, GeneralLayoutComponent, FuncionarioLayoutComponent, AuthLayoutComponent, ClienteLayoutComponent],
+  declarations: [AppComponent, AdminLayoutComponent, GeneralLayoutComponent, AuthLayoutComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

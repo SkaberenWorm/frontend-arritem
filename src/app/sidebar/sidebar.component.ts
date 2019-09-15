@@ -38,18 +38,76 @@ export class SidebarComponent implements OnInit {
 
   private menu_admin: RouteInfo[] = [
     {
-      path: '/',
-      title: 'Inicio',
+      path: '/admin',
+      title: 'Dashboard',
       type: 'link',
-      icontype: 'home'
+      icontype: 'dashboard'
     },
     {
       path: '/departamento',
       title: 'Departamentos',
       type: 'sub',
-      icontype: 'grid_on',
+      icontype: 'apartment',
       collapse: 'departamentos',
-      children: [{ path: 'new', title: 'Nuevo Departamento', ab: '-' }, { path: 'listado', title: 'Listado De Departamentos', ab: '-' }]
+      children: [
+        { path: 'new', title: 'Nuevo Departamento', ab: '-' },
+        { path: 'listado', title: 'Listado De Departamentos', ab: '-' }
+      ]
+    },
+    {
+      path: '/admin/servicio',
+      title: 'Servicios',
+      type: 'sub',
+      icontype: 'local_activity',
+      collapse: 'servicios',
+      children: [
+        { path: 'new', title: 'Nuevo Servicio', ab: '-' },
+        { path: 'listado', title: 'Listado de Servicios', ab: '-' }
+      ]
+    },
+    {
+      path: '/reserva',
+      title: 'Reservas',
+      type: 'sub',
+      icontype: 'content_paste',
+      collapse: 'reservas',
+      children: [
+        { path: 'new', title: 'Nuevo Reserva', ab: '-' },
+        { path: 'listado', title: 'Listado de reservas', ab: '-' }
+      ]
+    },
+    {
+      path: '/admin/cliente',
+      title: 'Clientes',
+      type: 'sub',
+      icontype: 'emoji_emotions',
+      collapse: 'clientes',
+      children: [
+        { path: 'new', title: 'Nuevo Cliente', ab: '-' },
+        { path: 'listado', title: 'Listado de clientes', ab: '-' }
+      ]
+    },
+    {
+      path: '/admin/usuario',
+      title: 'Usuarios',
+      type: 'sub',
+      icontype: 'person',
+      collapse: 'usuarios',
+      children: [
+        { path: 'new', title: 'Nuevo Usuario', ab: '-' },
+        { path: 'listado', title: 'Listado de usuarios', ab: '-' }
+      ]
+    },
+    {
+      path: '/admin/mantencion',
+      title: 'Mantenciones',
+      type: 'sub',
+      icontype: 'local_convenience_store',
+      collapse: 'mantenciones',
+      children: [
+        { path: 'new', title: 'Nuevo Mantención', ab: '-' },
+        { path: 'listado', title: 'Listado de mantenciones', ab: '-' }
+      ]
     }
   ];
 
@@ -66,24 +124,10 @@ export class SidebarComponent implements OnInit {
       type: 'sub',
       icontype: 'grid_on',
       collapse: 'departamentos',
-      children: [{ path: 'new', title: 'Nuevo Departamento', ab: '-' }, { path: 'listado', title: 'Listado De Departamentos', ab: '-' }]
-    }
-  ];
-
-  private menu_cliente: RouteInfo[] = [
-    {
-      path: '/inicio',
-      title: 'Inicio',
-      type: 'link',
-      icontype: 'home'
-    },
-    {
-      path: '/departamento',
-      title: 'Departamentos',
-      type: 'sub',
-      icontype: 'grid_on',
-      collapse: 'departamentos',
-      children: [{ path: 'listado', title: 'Listado De Departamentos', ab: '-' }]
+      children: [
+        { path: 'new', title: 'Nuevo Departamento', ab: '-' },
+        { path: 'listado', title: 'Listado De Departamentos', ab: '-' }
+      ]
     }
   ];
 
@@ -93,29 +137,20 @@ export class SidebarComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) {}
 
-  /* isMobileMenu() {
-    if ($(window).width() > 991) {
-      return false;
-    }
-    return true;
-  } */
-
   ngOnInit() {
     if (this._authenticationService.esRol('Administrador')) {
       ROUTES = this.menu_admin;
     } else if (this._authenticationService.esRol('Funcionario')) {
       ROUTES = this.menu_funcionario;
-    } else {
-      ROUTES = this.menu_cliente;
     }
 
     this._authenticationService.cargarStorage();
-    // tslint:disable-next-line: max-line-length
     this.nombreUsuario =
-      this._authenticationService.nombre.length > 0 ? this._authenticationService.nombre : this._authenticationService.obtenerName();
+      this._authenticationService.nombre.length > 0
+        ? this._authenticationService.nombre
+        : this._authenticationService.obtenerName();
 
     this.menuItems = ROUTES.filter(menuItem => menuItem);
-    //console.log(this.menuItems);
     if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
       const elemSidebar = <HTMLElement>document.querySelector('.sidebar .sidebar-wrapper');
       this.ps = new PerfectScrollbar(elemSidebar);
@@ -129,7 +164,10 @@ export class SidebarComponent implements OnInit {
 
   isMac(): boolean {
     let bool = false;
-    if (navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.platform.toUpperCase().indexOf('IPAD') >= 0) {
+    if (
+      navigator.platform.toUpperCase().indexOf('MAC') >= 0 ||
+      navigator.platform.toUpperCase().indexOf('IPAD') >= 0
+    ) {
       bool = true;
     }
     return bool;

@@ -2,13 +2,17 @@
   <div class="container-fluid">
     <div class="navbar-wrapper">
       <div class="navbar-minimize">
-        <button mat-raised-button (click)="minimizeSidebar()" class="btn btn-just-icon btn-white btn-fab btn-round">
+        <button
+          mat-raised-button
+          (click)="minimizeSidebar()"
+          class="btn btn-just-icon btn-white btn-fab btn-round"
+        >
           <i class="material-icons text_align-center visible-on-sidebar-regular">more_vert</i>
           <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
         </button>
       </div>
-      <a class="navbar-brand" *ngIf="!isMobileMenu()" href="{{ getPath() }}"> {{ getTitle() }} </a>
-      <a class="navbar-brand" *ngIf="isMobileMenu()"> Logo - Arritem</a>
+      <a class="navbar-brand" href="{{ getPath() }}"> {{ getTitle() }} </a>
+      <a class="navbar-brand" *ngIf="getTitle() === null"> Logo - Arritem</a>
     </div>
     <button mat-button class="navbar-toggler btn-no-ripple" type="button" (click)="sidebarToggle()">
       <span class="sr-only">Toggle navigation</span>

@@ -1,14 +1,25 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanLoad, Route, UrlSegment } from '@angular/router';
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  Router,
+  CanLoad,
+  Route,
+  UrlSegment
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import swal from 'sweetalert2';
 import { AuthenticationService } from '../services/authentication.service';
 @Injectable()
-export class RolClienteGuard implements CanActivate {
+export class RolAdminAndFuncionarioGuard implements CanActivate, CanLoad {
   constructor(public _authService: AuthenticationService, public router: Router) {}
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this._authService.esRol('Cliente')) {
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    if (this._authService.esRol('Administrador') || this._authService.esRol('Funcionario')) {
       return true;
     }
     swal.fire({
@@ -22,7 +33,7 @@ export class RolClienteGuard implements CanActivate {
   }
 
   canLoad(route: Route, segments: UrlSegment[]): boolean | Observable<boolean> | Promise<boolean> {
-    if (this._authService.esRol('Cliente')) {
+    if (this._authService.esRol('Administrador') || this._authService.esRol('Funcionario')) {
       return true;
     }
     swal.fire({

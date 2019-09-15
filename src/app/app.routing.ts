@@ -4,12 +4,8 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { LoginGuard } from './commons/guards/login.guard';
 import { RolAdminGuard } from './commons/guards/rol-admin.guard';
-import { ClienteLayoutComponent } from './layouts/cliente-layout/cliente-layout.component';
-import { RolClienteGuard } from './commons/guards/rol-cliente.guard';
-import { RolClienteDenyGuard } from './commons/guards/rol-cliente-deny.guard';
-import { RolFuncionarioGuard } from './commons/guards/rol-funcionario.guard';
-import { FuncionarioLayoutComponent } from './layouts/funcionario-layout/funcionario-layout.component';
 import { GeneralLayoutComponent } from './layouts/general/general-layout.component';
+import { RolAdminAndFuncionarioGuard } from './commons/guards/rol-admin-and-funcionario.guard';
 
 export const AppRoutes: Routes = [
   {
@@ -30,20 +26,20 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'check',
-    component: FuncionarioLayoutComponent,
+    component: AdminLayoutComponent,
     loadChildren: './paginas/check/check.module#CheckModule',
-    canLoad: [LoginGuard, RolClienteDenyGuard]
-  },
-  {
-    path: 'inicio',
-    component: ClienteLayoutComponent,
-    loadChildren: './paginas/cliente/cliente.module#ClienteModule',
-    canLoad: [LoginGuard, RolClienteGuard]
+    canLoad: [LoginGuard, RolAdminAndFuncionarioGuard]
   },
   {
     path: 'departamento',
     component: GeneralLayoutComponent,
     loadChildren: './paginas/departamento/departamento.module#DepartamentoModule',
-    canLoad: [LoginGuard]
+    canLoad: [LoginGuard, RolAdminAndFuncionarioGuard]
+  },
+  {
+    path: 'reserva',
+    component: GeneralLayoutComponent,
+    loadChildren: './paginas/reserva/reserva.module#ReservaModule',
+    canLoad: [LoginGuard, RolAdminAndFuncionarioGuard]
   }
 ];

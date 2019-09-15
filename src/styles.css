@@ -11,7 +11,8 @@
 }
 
 .custom-is-invalid .form-control {
-  background-image: linear-gradient(to top, #f44336 2px, rgba(3, 38, 80, 0) 2px), linear-gradient(to top, #f44336 1px, rgba(210, 210, 210, 0) 1px) !important;
+  background-image: linear-gradient(to top, #f44336 2px, rgba(3, 38, 80, 0) 2px),
+    linear-gradient(to top, #f44336 1px, rgba(210, 210, 210, 0) 1px) !important;
 }
 
 .custom-is-invalid .material-icons {
@@ -45,7 +46,7 @@ div.block-ui-spinner .message {
 }
 
 .main-panel .main-content {
-  margin-top: 30px;
+  margin-top: 40px;
 }
 
 .card-header {
@@ -202,4 +203,53 @@ span.cerrar:hover {
 
 .sidebar .logo-img img {
   top: 0px;
+}
+
+.card-stats .icon-size-5 {
+  font-size: 5rem;
+  min-height: 64px;
+}
+.card-stats .icon-size-4 {
+  font-size: 4rem;
+  min-height: 64px;
+  margin-top: 6px;
+}
+
+.card-stats .icon-size-3 {
+  font-size: 3rem;
+  min-height: 64px;
+}
+
+.card-stats .card-body .numbers {
+  text-align: right;
+  font-size: 2em;
+}
+.card-stats .card-body .numbers .card-category {
+  color: #9a9a9a;
+  font-size: 16px;
+  line-height: 1.4em;
+}
+
+.card-stats .card-body .numbers p {
+  margin-bottom: 0;
+}
+
+.card-stats .card-footer {
+  padding: 0px 15px 15px;
+}
+.card-stats .card-footer .stats {
+  color: #9a9a9a;
+}
+.card.card-stats .card-body {
+  box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.1);
+}
+.card.card-stats .text-primary {
+  color: #51cbce !important;
+}
+
+.card .card-footer .stats i {
+  margin-right: 10px;
+  position: relative;
+  top: 5px;
+  color: #66615b;
 }

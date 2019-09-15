@@ -1,33 +1,86 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12 mr-auto ml-auto">
-        <div class="card card-wizard" data-color="uft" id="wizardProfile">
-          <form>
-            <div class="card-header text-center">
-              <h3 class="card-title">
-                Fomulario2
-              </h3>
-              <h5 class="card-description">This information will let us know more about you.</h5>
-            </div>
-            <div class="card-footer">
-              <div class="mr-auto">
-                <input type="button" class="btn btn-previous btn-fill btn-primary btn-wd disabled" name="previous" value="Anterior" />
+      <div class="col-lg-4 col-md-4 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="text-center text-warning">
+                  <i class="material-icons icon-size-4">language</i>
+                </div>
               </div>
-              <div class="ml-auto">
-                <input type="button" id="btn_next" class="btn btn-next btn-fill btn-primary btn-wd" name="next" value="siguiente" />
-                <input
-                  type="button"
-                  id="btn_finish"
-                  class="btn btn-finish btn-fill btn-primary btn-wd"
-                  name="finish"
-                  value="finalizar"
-                  style="display: none;"
-                />
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">Capacity</p>
+                  <p class="card-title">150GB</p>
+                </div>
               </div>
-              <div class="clearfix"></div>
             </div>
-          </form>
+          </div>
+          <div class="card-footer ">
+            <div class="stats"><i class="fa fa-refresh"></i> Actualizar</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="text-center text-success">
+                  <i class="material-icons icon-size-4">attach_money</i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">Ganancias</p>
+                  <p class="card-title">$15.000</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <div class="stats"><i class="fa fa-refresh"></i> Actualizar</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="text-center text-primary">
+                  <i class="material-icons icon-size-4">emoji_emotions</i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">Clientes</p>
+                  <p class="card-title">150</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <div class="stats"><i class="fa fa-refresh"></i> Actualizar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-stats">
+          <div class="card-header ">
+            <h5 class="card-title">Reservas</h5>
+            <p class="card-category">Útlimo año</p>
+          </div>
+          <div class="card-body ">
+            <canvas id="chartHours" width="400" height="100"></canvas>
+          </div>
+          <div class="card-footer ">
+            <div class="stats"><i class="fa fa-history"></i> Actualizado hace x min</div>
+          </div>
         </div>
       </div>
     </div>
