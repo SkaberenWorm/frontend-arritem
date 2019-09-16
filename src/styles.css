@@ -42,7 +42,6 @@ div.block-ui-wrapper .loader {
 
 div.block-ui-spinner .message {
   color: #708ada;
-  /* Loading text color */
 }
 
 .main-panel .main-content {
@@ -127,12 +126,22 @@ span.cerrar:hover {
 }
 
 /**  SOBRE ESCRITURA **/
-
+.card {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .esMobile {
   display: none;
 }
+.navbar .logo-img-navbar img {
+  display: none;
+}
 
+/* PANTALLA MEDIANA */
 @media (max-width: 991px) {
+.txt-arritem-white{
+color: white;
+}
   .wrapper {
     background-color: #fefefe;
   }
@@ -154,13 +163,17 @@ span.cerrar:hover {
   }
 
   .main-panel .main-content {
-    margin-top: 5px;
+    margin-top: 25px;
   }
 
   .navbar.navbar-transparent {
     padding-top: 0px;
     padding-bottom: 0px;
   }
+  .navbar.navbar-arritem {
+    background-color: #34486d !important;
+    color: #fff;
+}
   /**  NAVBAR FOOTER */
   .router-link-active.router-link-active.router-link-active.router-link-active {
     color: black;
@@ -172,6 +185,41 @@ span.cerrar:hover {
   .esMobile {
     display: block !important;
   }
+
+  .navbar .logo-img-navbar img {
+    display: block !important;
+    height: 46px;
+    top: 0px;
+    left: 13px;
+  }
+  .navbar.navbar-transparent .navbar-toggler .navbar-toggler-icon {
+    background-color: #032650 !important;
+}
+.navbar{
+  border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.navbar.navbar-transparent .navbar-toggler .navbar-toggler-icon {
+    background-color: #fff !important;
+}
+  .card {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+}
+
+/* FIN PANTALLA MEDIANA */
+
+/* PANTALLA PEQUEÑA */
+@media (max-width: 576px) {
+  .main-panel .main-content {
+    padding: 30px 11px;
+    padding-bottom: 15px;
+  }
+  .card {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
 }
 
 .sidebar .nav li:hover > a,
@@ -243,13 +291,17 @@ span.cerrar:hover {
 .card.card-stats .card-body {
   box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.1);
 }
-.card.card-stats .text-primary {
-  color: #51cbce !important;
+.card.card-stats .text-cyan {
+  color: #51cbce;
 }
-
 .card .card-footer .stats i {
   margin-right: 10px;
   position: relative;
   top: 5px;
   color: #66615b;
+}
+.mat-progress-spinner {
+  position: relative;
+  margin-left: 50%;
+  margin-right: 50%;
 }

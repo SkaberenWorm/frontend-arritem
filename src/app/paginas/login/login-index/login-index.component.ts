@@ -51,8 +51,15 @@ export class LoginIndexComponent implements OnInit, OnDestroy {
           this.router.navigate(['/admin']);
         } else if (this.authenticationService.esRol('Funcionario')) {
           this.router.navigate(['/check']);
+        } else if (this.authenticationService.esRol('Cliente')) {
+          swal.fire({
+            title: 'Error',
+            text: 'No tiene los permisos suficientes, para ingresar a esta plataforma',
+            type: 'error'
+          });
+          this.authenticationService.logout();
         } else {
-          this.router.navigate(['/inicio']);
+          this.authenticationService.logout();
         }
       }
       if (state.error != null) {

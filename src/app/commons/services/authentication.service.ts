@@ -24,10 +24,18 @@ export class AuthenticationService {
   }
   public cargarStorage() {
     this.token = '';
-    if (localStorage.getItem('token') !== null && localStorage.getItem('token') !== '' && localStorage.getItem('token') !== undefined) {
+    if (
+      localStorage.getItem('token') !== null &&
+      localStorage.getItem('token') !== '' &&
+      localStorage.getItem('token') !== undefined
+    ) {
       this.token = localStorage.getItem('token');
     }
-    if (localStorage.getItem('nombre') !== null && localStorage.getItem('nombre') !== '' && localStorage.getItem('nombre') !== undefined) {
+    if (
+      localStorage.getItem('nombre') !== null &&
+      localStorage.getItem('nombre') !== '' &&
+      localStorage.getItem('nombre') !== undefined
+    ) {
       this.nombre = localStorage.getItem('nombre');
     }
   }
@@ -85,7 +93,10 @@ export class AuthenticationService {
     } else if (this.token.trim().length === 0) {
       this.logout();
     }
-    if (this.token.length > 120 && moment().isSameOrBefore(moment.unix(this.obtenerExpiracionToken(this.token)))) {
+    if (
+      this.token.length > 120 &&
+      moment().isSameOrBefore(moment.unix(this.obtenerExpiracionToken(this.token)))
+    ) {
       return true;
     } else {
       this.logout();
@@ -106,7 +117,10 @@ export class AuthenticationService {
         this.logout();
         return;
       }
-      if (this.token.length > 120 && moment().isSameOrBefore(moment.unix(this.obtenerExpiracionToken(this.token)))) {
+      if (
+        this.token.length > 120 &&
+        moment().isSameOrBefore(moment.unix(this.obtenerExpiracionToken(this.token)))
+      ) {
         resolve(true);
       } else {
         resolve(false);

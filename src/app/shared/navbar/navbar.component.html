@@ -1,4 +1,4 @@
-<nav #navbar class="navbar navbar-expand-lg navbar-transparent  navbar-absolute">
+<nav #navbar class="navbar navbar-expand-lg navbar-arritem navbar-transparent   navbar-absolute">
   <div class="container-fluid">
     <div class="navbar-wrapper">
       <div class="navbar-minimize">
@@ -11,6 +11,10 @@
           <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>
         </button>
       </div>
+      <div class="logo-img-navbar">
+        <img class="mt-0" src="./assets/img/icon-sir/icon-192x192.png" />
+      </div>
+
       <a class="navbar-brand" href="{{ getPath() }}"> {{ getTitle() }} </a>
       <a class="navbar-brand" *ngIf="getTitle() === null"> Logo - Arritem</a>
     </div>

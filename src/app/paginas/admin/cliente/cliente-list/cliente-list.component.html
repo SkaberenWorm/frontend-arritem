@@ -1,8 +1,53 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row text-center">
-      <div class="col-md-12 mt-3">
-        <span class="pt-5">Listado de clientes</span>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-stats">
+          <div class="card-header ">
+            <div class="row">
+              <div class="col-sm-6">NUEVO</div>
+              <div class="col-sm-6">BUSCAR</div>
+            </div>
+          </div>
+          <div class="card-body ">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary text-left">
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Celular</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr *ngIf="loading" class="text-center ">
+                    <td colspan="5" class="pt-5">
+                      <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr class="text-left" *ngFor="let cliente of listaClientes">
+                    <td>{{ cliente.id }}</td>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.celular }}</td>
+                    <td>
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                        <a><i class="material-icons text-secondary">visibility</i></a>
+                        <a><i class="material-icons text-primary px-2">edit</i></a>
+                        <a><i class="material-icons text-danger">close</i></a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
