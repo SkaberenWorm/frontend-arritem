@@ -24,4 +24,26 @@ export class ClienteService {
       })
     );
   }
+
+  public getById(id: number): Observable<ResultadoProc<ClienteModel>> {
+    return this.http.get<ResultadoProc<ClienteModel>>(`${this.urlBase}/${id}`).pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  public guardar(cliente: ClienteModel): Observable<ResultadoProc<ClienteModel>> {
+    // Rol 3 = cliente
+    cliente.rol.id = 3;
+    cliente.activo = true;
+
+    if (cliente.id > 0) {
+      // Editar
+      return this.http.put<ResultadoProc<ClienteModel>>(this.urlBase, cliente);
+    } else {
+      // Agregar
+      return this.http.post<ResultadoProc<ClienteModel>>(this.urlBase, cliente);
+    }
+  }
 }

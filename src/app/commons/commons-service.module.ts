@@ -20,8 +20,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatSelectModule, MatInputModule } from '@angular/material';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RolAdminAndFuncionarioGuard } from './guards/rol-admin-and-funcionario.guard';
+import { LoadingCardComponent } from './components/loading/loading-card/loading-card.component';
+import { LoadingTableComponent } from './components/loading/loading-table/loading-table.component';
 @NgModule({
-  declarations: [FieldErrorDisplayComponent],
+  declarations: [FieldErrorDisplayComponent, LoadingCardComponent, LoadingTableComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -55,6 +57,6 @@ import { RolAdminAndFuncionarioGuard } from './guards/rol-admin-and-funcionario.
     UtilFormating,
     UtilValidation
   ],
-  exports: [FieldErrorDisplayComponent]
+  exports: [FieldErrorDisplayComponent, LoadingCardComponent, LoadingTableComponent]
 })
 export class CommonsServiceModule {}

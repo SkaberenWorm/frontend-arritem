@@ -126,6 +126,29 @@ span.cerrar:hover {
 }
 
 /**  SOBRE ESCRITURA **/
+.mat-button.btn.btn-outline-primary:focus,
+.mat-button.btn.btn-outline-primary.focus,
+.mat-button.btn.btn-outline-primary:hover,
+.mat-raised-button.btn.btn-outline-primary:focus,
+.mat-raised-button.btn.btn-outline-primary.focus,
+.mat-raised-button.btn.btn-outline-primary:hover,
+.mat-raised-button.btn:not([class*='mat-elevation-z']).btn-outline-primary:focus,
+.mat-raised-button.btn:not([class*='mat-elevation-z']).btn-outline-primary.focus,
+.mat-raised-button.btn:not([class*='mat-elevation-z']).btn-outline-primary:hover,
+.btn.btn-outline-primary:focus,
+.btn.btn-outline-primary.focus,
+.btn.btn-outline-primary:hover {
+  background-color: rgba(153, 153, 153, 0.05);
+  box-shadow: 0px !important;
+}
+
+.input-search {
+  max-width: 200px;
+}
+
+.sidebar .user {
+  height: 50px;
+}
 .card {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -139,9 +162,9 @@ span.cerrar:hover {
 
 /* PANTALLA MEDIANA */
 @media (max-width: 991px) {
-.txt-arritem-white{
-color: white;
-}
+  .txt-arritem-white {
+    color: white;
+  }
   .wrapper {
     background-color: #fefefe;
   }
@@ -173,7 +196,7 @@ color: white;
   .navbar.navbar-arritem {
     background-color: #34486d !important;
     color: #fff;
-}
+  }
   /**  NAVBAR FOOTER */
   .router-link-active.router-link-active.router-link-active.router-link-active {
     color: black;
@@ -194,18 +217,18 @@ color: white;
   }
   .navbar.navbar-transparent .navbar-toggler .navbar-toggler-icon {
     background-color: #032650 !important;
-}
-.navbar{
-  border-bottom-right-radius: 0px;
+  }
+  .navbar {
+    border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
-}
-.navbar.navbar-transparent .navbar-toggler .navbar-toggler-icon {
+  }
+  .navbar.navbar-transparent .navbar-toggler .navbar-toggler-icon {
     background-color: #fff !important;
-}
+  }
   .card {
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
 }
 
 /* FIN PANTALLA MEDIANA */
@@ -217,9 +240,9 @@ color: white;
     padding-bottom: 15px;
   }
   .card {
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
 }
 
 .sidebar .nav li:hover > a,

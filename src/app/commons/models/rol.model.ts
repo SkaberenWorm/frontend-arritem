@@ -1,6 +1,10 @@
 export class RolModel {
-  constructor(public id: string = '',
-    public descripcion: string = '') {
+  public id = 0;
+  public descripcion = '';
 
+  constructor(fields?: { id: number; descripcion: string }) {
+    if (fields) {
+      Object.assign(this, fields);
+    }
   }
 }

@@ -54,7 +54,7 @@ export class LoginIndexComponent implements OnInit, OnDestroy {
         } else if (this.authenticationService.esRol('Cliente')) {
           swal.fire({
             title: 'Error',
-            text: 'No tiene los permisos suficientes, para ingresar a esta plataforma',
+            text: 'No tiene los permisos suficientes para ingresar a esta plataforma',
             type: 'error'
           });
           this.authenticationService.logout();

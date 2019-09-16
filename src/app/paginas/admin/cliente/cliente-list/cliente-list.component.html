@@ -3,10 +3,26 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card card-stats">
-          <div class="card-header ">
+          <div class="card-header py-0">
             <div class="row">
-              <div class="col-sm-6">NUEVO</div>
-              <div class="col-sm-6">BUSCAR</div>
+              <div class="col">
+                <button class="btn btn-sm btn-outline-primary mt-3 px-2" (click)="newClient()">
+                  Nuevo cliente
+                </button>
+              </div>
+              <div class="col-1 col-md-4 col-lg-6"></div>
+              <div class="col align-middle text-right">
+                <mat-form-field class="float-right example-full-width mt-2 input-search">
+                  <input
+                    class="text-right"
+                    matInput
+                    placeholder="Buscar"
+                    type="text"
+                    name="clienteFilter"
+                    (keyup)="filtrarProducto($event.target.value)"
+                  />
+                </mat-form-field>
+              </div>
             </div>
           </div>
           <div class="card-body ">
@@ -22,11 +38,9 @@
                   </tr>
                 </thead>
                 <tbody class="text-center">
-                  <tr *ngIf="loading" class="text-center ">
+                  <tr *ngIf="loading" class="text-center text-white">
                     <td colspan="5" class="pt-5">
-                      <div class="spinner-border text-primary" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
+                      <app-loading-table></app-loading-table>
                     </td>
                   </tr>
 

@@ -51,7 +51,7 @@ export class SidebarComponent implements OnInit {
       collapse: 'departamentos',
       children: [
         { path: 'new', title: 'Nuevo Departamento', ab: '-' },
-        { path: 'listado', title: 'Listado De Departamentos', ab: '-' }
+        { path: 'listado', title: 'Listado Departamentos', ab: '-' }
       ]
     },
     {

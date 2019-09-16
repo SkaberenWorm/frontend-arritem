@@ -6,7 +6,6 @@ import { Location, PopStateEvent } from '@angular/common';
 import 'rxjs/add/operator/filter';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import PerfectScrollbar from 'perfect-scrollbar';
-import * as $ from 'jquery';
 import { Observable, of as observableOf } from 'rxjs';
 import { AuthenticationService } from 'src/app/commons/services/authentication.service';
 
@@ -24,7 +23,11 @@ export class GeneralLayoutComponent implements OnInit, AfterViewInit {
 
   @ViewChild('sidebar', { static: false }) sidebar: any;
   @ViewChild(NavbarComponent, { static: false }) navbar: NavbarComponent;
-  constructor(private router: Router, location: Location, private authenticationService: AuthenticationService) {
+  constructor(
+    private router: Router,
+    location: Location,
+    private authenticationService: AuthenticationService
+  ) {
     this.location = location;
   }
 
@@ -94,7 +97,10 @@ export class GeneralLayoutComponent implements OnInit, AfterViewInit {
 
   isMac(): boolean {
     let bool = false;
-    if (navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.platform.toUpperCase().indexOf('IPAD') >= 0) {
+    if (
+      navigator.platform.toUpperCase().indexOf('MAC') >= 0 ||
+      navigator.platform.toUpperCase().indexOf('IPAD') >= 0
+    ) {
       bool = true;
     }
     return bool;
