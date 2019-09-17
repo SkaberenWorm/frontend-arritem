@@ -22,8 +22,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RolAdminAndFuncionarioGuard } from './guards/rol-admin-and-funcionario.guard';
 import { LoadingCardComponent } from './components/loading/loading-card/loading-card.component';
 import { LoadingTableComponent } from './components/loading/loading-table/loading-table.component';
+import { VerUsuarioModalComponent } from './components/ver-usuario-modal/ver-usuario-modal.component';
 @NgModule({
-  declarations: [FieldErrorDisplayComponent, LoadingCardComponent, LoadingTableComponent],
+  declarations: [
+    FieldErrorDisplayComponent,
+    LoadingCardComponent,
+    LoadingTableComponent,
+    VerUsuarioModalComponent
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -57,6 +63,11 @@ import { LoadingTableComponent } from './components/loading/loading-table/loadin
     UtilFormating,
     UtilValidation
   ],
-  exports: [FieldErrorDisplayComponent, LoadingCardComponent, LoadingTableComponent]
+  exports: [
+    FieldErrorDisplayComponent,
+    LoadingCardComponent,
+    LoadingTableComponent,
+    VerUsuarioModalComponent
+  ]
 })
 export class CommonsServiceModule {}

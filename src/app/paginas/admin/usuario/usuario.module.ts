@@ -4,9 +4,21 @@ import { UsuarioService } from './usuario.service';
 import { UsuarioRoutingModule } from './usuario-routing.module';
 import { UsuarioListComponent } from './usuario-list/usuario-list.component';
 import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material';
+import { CommonsServiceModule } from 'src/app/commons/commons-service.module';
+import { MaterialModule } from 'src/app/app.module';
 
 @NgModule({
-  imports: [CommonModule, UsuarioRoutingModule],
+  imports: [
+    CommonModule,
+    UsuarioRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    CommonsServiceModule,
+    MaterialModule
+  ],
   declarations: [UsuarioListComponent, UsuarioFormComponent],
   providers: [UsuarioService]
 })

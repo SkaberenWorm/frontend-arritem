@@ -328,3 +328,11 @@ span.cerrar:hover {
   margin-left: 50%;
   margin-right: 50%;
 }
+
+.btn-previous {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}

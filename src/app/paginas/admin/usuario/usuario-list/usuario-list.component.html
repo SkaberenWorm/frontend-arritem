@@ -1,9 +1,93 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row text-center">
-      <div class="col-md-12 mt-3">
-        <span class="pt-5">Listado de clientes</span>
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-11 ">
+        <div class="card card-stats">
+          <div class="card-header py-0">
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-sm btn-outline-primary mt-3 px-2" (click)="newUser()">
+                  Nuevo usuario
+                </button>
+              </div>
+              <div class="col-1 col-md-4 col-lg-6"></div>
+              <div class="col align-middle text-right">
+                <mat-form-field class="float-right example-full-width mt-2 input-search">
+                  <input
+                    class="text-right"
+                    matInput
+                    placeholder="Buscar"
+                    type="text"
+                    name="usuarioFilter"
+                    (keyup)="filtrarUsuario($event.target.value)"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="card-body ">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary text-left">
+                  <tr>
+                    <th>Run</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Celular</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr *ngIf="loading" class="text-center text-white">
+                    <td colspan="5" class="pt-5">
+                      <app-loading-table></app-loading-table>
+                    </td>
+                  </tr>
+
+                  <tr class="text-left" *ngFor="let usuario of listaUsuarios">
+                    <td>{{ usuario.run }}</td>
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.celular }}</td>
+                    <td>
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                        <a
+                          (click)="verDetalleUsuario(usuario)"
+                          routerLink="."
+                          mdTooltipClass="{ 'mat-tooltip-arritem': true }"
+                        >
+                          <i class="material-icons text-secondary">visibility</i>
+                        </a>
+                        <a
+                          [routerLink]="['/admin/usuario/', usuario.id, 'edit']"
+                          routerLinkActive="router-link-active"
+                        >
+                          <i class="material-icons text-primary px-2">edit</i>
+                        </a>
+                        <a
+                          (click)="cambiarEstadoUsuario(usuario)"
+                          *ngIf="usuario.activo"
+                          routerLink="."
+                        >
+                          <i class="material-icons text-danger">close</i>
+                        </a>
+                        <a
+                          (click)="cambiarEstadoUsuario(usuario)"
+                          *ngIf="!usuario.activo"
+                          routerLink="."
+                        >
+                          <i class="material-icons text-success">done</i>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<app-ver-usuario-modal></app-ver-usuario-modal>

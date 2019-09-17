@@ -22,7 +22,7 @@ const routes: Routes = [
     canActivate: [LoginGuard, RolAdminGuard]
   },
   {
-    path: 'cliente/{id}/edit',
+    path: 'cliente/:id/edit',
     component: ClienteFormComponent,
     canActivate: [LoginGuard, RolAdminGuard]
   }

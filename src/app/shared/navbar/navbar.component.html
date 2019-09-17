@@ -16,7 +16,7 @@
       </div>
 
       <a class="navbar-brand" href="{{ getPath() }}"> {{ getTitle() }} </a>
-      <a class="navbar-brand" *ngIf="getTitle() === null"> Logo - Arritem</a>
+      <a class="navbar-brand" *ngIf="getTitle() == null"> {{ titulo }} sd</a>
     </div>
     <button mat-button class="navbar-toggler btn-no-ripple" type="button" (click)="sidebarToggle()">
       <span class="sr-only">Toggle navigation</span>

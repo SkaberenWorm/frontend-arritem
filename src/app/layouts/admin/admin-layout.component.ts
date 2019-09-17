@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -21,6 +21,8 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
   private yScrollStack: number[] = [];
   url: string;
   location: Location;
+
+  @Input() titulo;
 
   @ViewChild('sidebar', { static: false }) sidebar: any;
   @ViewChild(NavbarComponent, { static: false }) navbar: NavbarComponent;
@@ -88,7 +90,10 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
   }
   isMac(): boolean {
     let bool = false;
-    if (navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.platform.toUpperCase().indexOf('IPAD') >= 0) {
+    if (
+      navigator.platform.toUpperCase().indexOf('MAC') >= 0 ||
+      navigator.platform.toUpperCase().indexOf('IPAD') >= 0
+    ) {
       bool = true;
     }
     return bool;

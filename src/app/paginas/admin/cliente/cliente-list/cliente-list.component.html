@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-11 ">
         <div class="card card-stats">
           <div class="card-header py-0">
             <div class="row">
@@ -19,7 +19,7 @@
                     placeholder="Buscar"
                     type="text"
                     name="clienteFilter"
-                    (keyup)="filtrarProducto($event.target.value)"
+                    (keyup)="filtrarCliente($event.target.value)"
                   />
                 </mat-form-field>
               </div>
@@ -30,7 +30,7 @@
               <table class="table">
                 <thead class="text-primary text-left">
                   <tr>
-                    <th>ID</th>
+                    <th>Run</th>
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Celular</th>
@@ -45,15 +45,39 @@
                   </tr>
 
                   <tr class="text-left" *ngFor="let cliente of listaClientes">
-                    <td>{{ cliente.id }}</td>
+                    <td>{{ cliente.run }}</td>
                     <td>{{ cliente.nombre }}</td>
                     <td>{{ cliente.email }}</td>
                     <td>{{ cliente.celular }}</td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <a><i class="material-icons text-secondary">visibility</i></a>
-                        <a><i class="material-icons text-primary px-2">edit</i></a>
-                        <a><i class="material-icons text-danger">close</i></a>
+                        <a
+                          (click)="verDetalleCliente(cliente)"
+                          routerLink="."
+                          mdTooltipClass="{ 'mat-tooltip-arritem': true }"
+                        >
+                          <i class="material-icons text-secondary">visibility</i>
+                        </a>
+                        <a
+                          [routerLink]="['/admin/cliente/', cliente.id, 'edit']"
+                          routerLinkActive="router-link-active"
+                        >
+                          <i class="material-icons text-primary px-2">edit</i>
+                        </a>
+                        <a
+                          (click)="cambiarEstadoCliente(cliente)"
+                          *ngIf="cliente.activo"
+                          routerLink="."
+                        >
+                          <i class="material-icons text-danger">close</i>
+                        </a>
+                        <a
+                          (click)="cambiarEstadoCliente(cliente)"
+                          *ngIf="!cliente.activo"
+                          routerLink="."
+                        >
+                          <i class="material-icons text-success">done</i>
+                        </a>
                       </div>
                     </td>
                   </tr>
@@ -66,3 +90,4 @@
     </div>
   </div>
 </div>
+<app-ver-usuario-modal></app-ver-usuario-modal>

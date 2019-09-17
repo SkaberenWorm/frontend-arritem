@@ -13,7 +13,6 @@ import { MaterialModule } from 'src/app/app.module';
   imports: [
     CommonModule,
     ClienteRoutingModule,
-    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
