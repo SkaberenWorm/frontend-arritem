@@ -160,6 +160,14 @@ span.cerrar:hover {
   display: none;
 }
 
+.img-carousel {
+  height: 250px;
+}
+
+.w-400 {
+  max-width: 400px;
+}
+
 /* PANTALLA MEDIANA */
 @media (max-width: 991px) {
   .txt-arritem-white {

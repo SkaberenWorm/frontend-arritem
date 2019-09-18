@@ -15,7 +15,9 @@
         <img class="mt-0" src="./assets/img/icon-sir/icon-192x192.png" />
       </div>
 
-      <a class="navbar-brand" href="{{ getPath() }}"> {{ getTitle() }} </a>
+      <a class="navbar-brand" *ngIf="getTitle() != null" href="{{ getPath() }}">
+        {{ getTitle() }}
+      </a>
       <a class="navbar-brand" *ngIf="getTitle() == null"> {{ titulo }} sd</a>
     </div>
     <button mat-button class="navbar-toggler btn-no-ripple" type="button" (click)="sidebarToggle()">

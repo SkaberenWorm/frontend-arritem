@@ -1,4 +1,4 @@
-import { RolModel } from './rol.model';
+import { Rol } from './rol.model';
 
 export class Cliente {
   public id = 0;
@@ -8,7 +8,7 @@ export class Cliente {
   public email = '';
   public activo = true;
   public celular = '';
-  public rol = new RolModel();
+  public rol = new Rol();
   public password = '';
 
   constructor(fields?: {
@@ -18,7 +18,7 @@ export class Cliente {
     apellidos?: string;
     email?: String;
     activo?: boolean;
-    rol?: RolModel;
+    rol?: Rol;
     celular?: string;
     password?: string;
   }) {

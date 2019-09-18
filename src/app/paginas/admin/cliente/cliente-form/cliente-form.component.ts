@@ -27,7 +27,6 @@ interface FileReaderEvent extends Event {
 export class ClienteFormComponent implements OnInit, OnChanges {
   public cliente: Cliente = new Cliente();
   public loading = false;
-  @Output() titulo = 'dasds';
   public formulario: FormGroup;
 
   constructor(

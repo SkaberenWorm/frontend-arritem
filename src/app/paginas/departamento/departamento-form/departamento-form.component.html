@@ -1,8 +1,164 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row text-center">
-      <div class="col-md-12 mt-3">
-        <span class="pt-5">Formulario de departamento</span>
+    <div class="row justify-content-center">
+      <div class="col-md-11 mx-sm-3 mx-md-1 col-lg-12">
+        <div class="wizard-container">
+          <div class="card card-wizard " data-color="uft" id="wizardProfile">
+            <form [formGroup]="formulario">
+              <div class="card-body">
+                <div class="btn-previous">
+                  <a routerLink="/departamento/listado">
+                    <i class="material-icons text-muted">arrow_back</i>
+                  </a>
+                </div>
+                <div class="tab-content">
+                  <div class="tab-pane active">
+                    <div class="row justify-content-center">
+                      <div class="col-sm-6">
+                        <ngb-carousel *ngIf="images" class="mb-3 w-400 mx-auto">
+                          <ng-template ngbSlide>
+                            <div class="picsum-img-wrapper">
+                              <img
+                                [src]="images[0]"
+                                class="img-carousel"
+                                alt="Random first slide"
+                              />
+                            </div>
+                            <div class="carousel-caption">
+                              <p>This carousel uses customized default values.</p>
+                            </div>
+                          </ng-template>
+                          <ng-template ngbSlide>
+                            <div class="picsum-img-wrapper">
+                              <img
+                                [src]="images[1]"
+                                class="img-carousel"
+                                alt="Random second slide"
+                              />
+                            </div>
+                            <div class="carousel-caption">
+                              <p>This carousel doesn't pause or resume on mouse events</p>
+                            </div>
+                          </ng-template>
+                          <ng-template ngbSlide>
+                            <div class="picsum-img-wrapper">
+                              <img
+                                [src]="images[2]"
+                                class="img-carousel"
+                                alt="Random third slide"
+                              />
+                            </div>
+                            <div class="carousel-caption">
+                              <p>This carousel uses customized default values.</p>
+                            </div>
+                          </ng-template>
+                          <ng-template ngbSlide>
+                            <div class="picsum-img-wrapper">
+                              <img
+                                [src]="images[3]"
+                                class="img-carousel"
+                                alt="Random fourth slide"
+                              />
+                            </div>
+                            <div class="carousel-caption">
+                              <p>This carousel uses customized default values.</p>
+                            </div>
+                          </ng-template>
+                        </ngb-carousel>
+                      </div>
+                      <div class="col-sm-6 pt-3">
+                        <div class="input-group flex-nowrap">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">apartment</i>
+                            </span>
+                          </div>
+                          <mat-form-field class="example-full-width has-label ">
+                            <input
+                              type="text"
+                              name="nombre"
+                              matInput
+                              placeholder="Nombre Depto"
+                              formControlName="nombre"
+                              autocomplete="off"
+                            />
+                          </mat-form-field>
+                        </div>
+
+                        <div class="input-group flex-nowrap">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">directions</i>
+                            </span>
+                          </div>
+                          <mat-form-field class="example-full-width has-label ">
+                            <input
+                              type="text"
+                              name="direccion"
+                              matInput
+                              placeholder="Dirección"
+                              formControlName="direccion"
+                              autocomplete="off"
+                            />
+                          </mat-form-field>
+                        </div>
+                        <div class="input-group flex-nowrap">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">info</i>
+                            </span>
+                          </div>
+                          <mat-form-field>
+                            <mat-label>Estado</mat-label>
+                            <mat-select formControlName="estado">
+                              <mat-option value="D"> Disponible </mat-option>
+                              <mat-option value="M"> En mantención </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="input-group flex-nowrap">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">attach_money</i>
+                            </span>
+                          </div>
+                          <mat-form-field class="example-full-width has-label ">
+                            <input
+                              type="number"
+                              name="tarifa"
+                              matInput
+                              placeholder="Tarifa"
+                              formControlName="tarifa"
+                              autocomplete="off"
+                            />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <hr class="w-100" />
+                      <div class="col-md-10 mt-md-3"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="mr-auto"></div>
+                <div class="ml-auto">
+                  <button
+                    [ngClass]="{ 'px-3': loading }"
+                    type="button"
+                    class="btn btn-next btn-fill btn-primary btn-wd"
+                    (click)="guardar()"
+                  >
+                    <span *ngIf="loading" class="mr-2 spinner-border spinner-border-sm"></span>
+                    <span *ngIf="loading">Guardando</span>
+                    <span *ngIf="!loading">Guardar</span>
+                  </button>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>

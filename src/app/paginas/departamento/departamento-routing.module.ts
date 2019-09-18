@@ -4,6 +4,7 @@ import { DepartamentoFormComponent } from './departamento-form/departamento-form
 import { DepartamentoListComponent } from './departamento-list/departamento-list.component';
 import { LoginGuard } from 'src/app/commons/guards/login.guard';
 import { RolAdminGuard } from 'src/app/commons/guards/rol-admin.guard';
+import { DepartamentoViewComponent } from './departamento-view/departamento-view.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
   {
     path: ':id/edit',
     component: DepartamentoFormComponent,
+    canActivate: [LoginGuard, RolAdminGuard]
+  },
+  {
+    path: ':id/view',
+    component: DepartamentoViewComponent,
     canActivate: [LoginGuard, RolAdminGuard]
   }
 ];
