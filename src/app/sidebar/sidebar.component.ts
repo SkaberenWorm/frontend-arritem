@@ -106,7 +106,7 @@ export class SidebarComponent implements OnInit {
       collapse: 'mantenciones',
       children: [
         { path: 'new', title: 'Nuevo Mantención', ab: '-' },
-        { path: 'listado', title: 'Listado de mantenciones', ab: '-' }
+        { path: 'listado', title: 'Listado mantenciones', ab: '-' }
       ]
     }
   ];

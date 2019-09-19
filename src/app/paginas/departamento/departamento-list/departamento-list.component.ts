@@ -28,7 +28,7 @@ export class DepartamentoListComponent implements OnInit {
         console.log(result.resultado);
         this.listaDepartamentos = result.resultado;
       } else {
-        this.errorSwal(result.mensaje);
+        this.warningSwal(result.mensaje);
       }
     });
   }
@@ -76,6 +76,13 @@ export class DepartamentoListComponent implements OnInit {
     Swal.fire({
       title: 'Error',
       type: 'error',
+      text: mensaje
+    });
+  }
+
+  warningSwal(mensaje: string) {
+    Swal.fire({
+      type: 'warning',
       text: mensaje
     });
   }

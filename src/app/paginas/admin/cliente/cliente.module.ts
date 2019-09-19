@@ -16,8 +16,7 @@ import { MaterialModule } from 'src/app/app.module';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    CommonsServiceModule,
-    MaterialModule
+    CommonsServiceModule
   ],
   declarations: [ClienteListComponent, ClienteFormComponent],
   providers: [ClienteService]

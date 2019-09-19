@@ -27,7 +27,7 @@ export class ServicioListComponent implements OnInit {
         console.log(result.resultado);
         this.listaServicios = result.resultado;
       } else {
-        this.errorSwal(result.mensaje);
+        this.warningSwal(result.mensaje);
       }
     });
   }
@@ -85,6 +85,12 @@ export class ServicioListComponent implements OnInit {
 
   openModal(servicio: Servicio) {
     console.log(servicio);
+  }
+  warningSwal(mensaje: string) {
+    Swal.fire({
+      type: 'warning',
+      text: mensaje
+    });
   }
 
   successSwal(mensaje: string) {

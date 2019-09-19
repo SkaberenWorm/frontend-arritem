@@ -37,7 +37,7 @@ export class UsuarioListComponent implements OnInit {
       if (!result.error) {
         this.listaUsuarios = result.resultado;
       } else {
-        this.errorSwal(result.mensaje);
+        this.warningSwal(result.mensaje);
       }
     });
   }
@@ -91,6 +91,13 @@ export class UsuarioListComponent implements OnInit {
 
   newUser() {
     this.router.navigate(['/admin/usuario/new']);
+  }
+
+  warningSwal(mensaje: string) {
+    Swal.fire({
+      type: 'warning',
+      text: mensaje
+    });
   }
 
   successSwal(mensaje: string) {

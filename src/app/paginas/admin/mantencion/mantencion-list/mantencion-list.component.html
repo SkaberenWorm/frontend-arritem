@@ -1,9 +1,100 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row text-center">
-      <div class="col-md-12 mt-3">
-        <span class="pt-5">Listado de mantenciones</span>
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-11 ">
+        <div class="card card-stats">
+          <div class="card-header py-0">
+            <div class="row">
+              <div class="col">
+                <button class="btn btn-sm btn-outline-primary mt-3 px-2" (click)="newClient()">
+                  Nueva mantencion
+                </button>
+              </div>
+              <div class="col-1 col-md-4 col-lg-6"></div>
+              <div class="col align-middle text-right">
+                <mat-form-field class="float-right example-full-width mt-2 input-search">
+                  <input
+                    class="text-right"
+                    matInput
+                    placeholder="Buscar"
+                    type="text"
+                    name="mantencionFilter"
+                    (keyup)="filtrarMantencion($event.target.value)"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="card-body ">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="text-primary text-left">
+                  <tr>
+                    <th>#</th>
+                    <th>Descripción</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Término</th>
+                    <th>Costo</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr *ngIf="loading" class="text-center text-white">
+                    <td colspan="5" class="pt-5">
+                      <app-loading-table></app-loading-table>
+                    </td>
+                  </tr>
+                  <tr *ngIf="listaMantenciones.length == 0" class="text-center text-white">
+                    <td colspan="5" class="pt-5">
+                      <p class="text-muted">No se encontraron mantenciones registradas</p>
+                    </td>
+                  </tr>
+
+                  <tr class="text-left" *ngFor="let mantencion of listaMantenciones">
+                    <td>{{ mantencion.id }}</td>
+                    <td>{{ mantencion.descripcion }}</td>
+                    <td>{{ mantencion.fechaInicio }}</td>
+                    <td>{{ mantencion.fechaTermino }}</td>
+                    <td>{{ mantencion.costo }}</td>
+                    <td>
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                        <a
+                          (click)="verDetalleMantencion(mantencion)"
+                          routerLink="."
+                          mdTooltipClass="{ 'mat-tooltip-arritem': true }"
+                        >
+                          <i class="material-icons text-secondary">visibility</i>
+                        </a>
+                        <a
+                          [routerLink]="['/admin/mantencion/', mantencion.id, 'edit']"
+                          routerLinkActive="router-link-active"
+                        >
+                          <i class="material-icons text-primary px-2">edit</i>
+                        </a>
+                        <a
+                          (click)="cambiarEstadoMantencion(mantencion)"
+                          *ngIf="mantencion.activo"
+                          routerLink="."
+                        >
+                          <i class="material-icons text-danger">close</i>
+                        </a>
+                        <a
+                          (click)="cambiarEstadoMantencion(mantencion)"
+                          *ngIf="!mantencion.activo"
+                          routerLink="."
+                        >
+                          <i class="material-icons text-success">done</i>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<app-ver-usuario-modal></app-ver-usuario-modal>

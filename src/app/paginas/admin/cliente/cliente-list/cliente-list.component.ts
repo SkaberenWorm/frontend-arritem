@@ -36,7 +36,7 @@ export class ClienteListComponent implements OnInit {
       if (!result.error) {
         this.listaClientes = result.resultado;
       } else {
-        this.errorSwal(result.mensaje);
+        this.warningSwal(result.mensaje);
       }
     });
   }
@@ -90,6 +90,13 @@ export class ClienteListComponent implements OnInit {
 
   newClient() {
     this.router.navigate(['/admin/cliente/new']);
+  }
+
+  warningSwal(mensaje: string) {
+    Swal.fire({
+      type: 'warning',
+      text: mensaje
+    });
   }
 
   successSwal(mensaje: string) {

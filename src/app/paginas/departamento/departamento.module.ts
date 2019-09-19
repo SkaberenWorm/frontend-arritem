@@ -10,6 +10,7 @@ import { MatInputModule, MatSelectModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonsServiceModule } from 'src/app/commons/commons-service.module';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { ImgFallbackModule } from 'ngx-img-fallback';
 
 @NgModule({
   declarations: [DepartamentoListComponent, DepartamentoViewComponent, DepartamentoFormComponent],
@@ -21,7 +22,8 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
     MatInputModule,
     CommonsServiceModule,
     NgbCarouselModule,
-    MatSelectModule
+    MatSelectModule,
+    ImgFallbackModule
   ],
   providers: [DepartamentoService]
 })

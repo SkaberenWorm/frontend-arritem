@@ -1,8 +1,156 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row text-center">
-      <div class="col-md-12 mt-3">
-        <span class="pt-5">Formulario de mantencion</span>
+    <div class="row justify-content-center">
+      <div class="col-md-11 mx-sm-3 mx-md-1 col-lg-12">
+        <div class="wizard-container">
+          <div class="card card-wizard " data-color="uft" id="wizardProfile">
+            <form [formGroup]="formulario">
+              <div class="card-body">
+                <div class="btn-previous">
+                  <a routerLink="/admin/mantencion/listado">
+                    <i class="material-icons text-muted">arrow_back</i>
+                  </a>
+                </div>
+                <div class="tab-content">
+                  <div class="tab-pane active">
+                    <div class="row justify-content-center">
+                      <div class="col-md-12 col-lg-7 text-center">
+                        <p>Seleccione rango de fechas</p>
+                        <div class="table-responsive">
+                          <ngb-datepicker
+                            #dp
+                            (select)="onDateSelection($event)"
+                            [displayMonths]="2"
+                            [dayTemplate]="t"
+                            outsideDays="hidden"
+                            class="mx-auto"
+                          >
+                          </ngb-datepicker>
+
+                          <ng-template #t let-date let-focused="focused">
+                            <span
+                              class="custom-day"
+                              [class.focused]="focused"
+                              [class.range]="isRange(date)"
+                              [class.faded]="isHovered(date) || isInside(date)"
+                              (mouseenter)="hoveredDate = date"
+                              (mouseleave)="hoveredDate = null"
+                            >
+                              {{ date.day }}
+                            </span>
+                          </ng-template>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-lg-5 pt-lg-3 mt-lg-4 mt-3">
+                        <div class="input-group flex-nowrap">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">apartment</i>
+                            </span>
+                          </div>
+                          <mat-form-field class="example-full-width has-label ">
+                            <input
+                              type="text"
+                              name="descripcion"
+                              matInput
+                              placeholder="Descripción de la mantencion"
+                              formControlName="descripcion"
+                              autocomplete="off"
+                            />
+                          </mat-form-field>
+                        </div>
+
+                        <div class="input-group flex-nowrap">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">calendar_today</i>
+                            </span>
+                          </div>
+                          <mat-form-field class="example-full-width has-label disabled">
+                            <input
+                              type="text"
+                              name="fechaInicio"
+                              matInput
+                              placeholder="Fecha Inicio"
+                              formControlName="fechaInicio"
+                              autocomplete="off"
+                            />
+                          </mat-form-field>
+                        </div>
+
+                        <div class="input-group flex-nowrap">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">date_range</i>
+                            </span>
+                          </div>
+                          <mat-form-field class="example-full-width has-label disabled">
+                            <input
+                              type="text"
+                              name="fechaTermino"
+                              matInput
+                              placeholder="Fecha Término"
+                              formControlName="fechaTermino"
+                              autocomplete="off"
+                            />
+                          </mat-form-field>
+                        </div>
+
+                        <div class="input-group flex-nowrap">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">info</i>
+                            </span>
+                          </div>
+                          <mat-form-field>
+                            <mat-label>Causa</mat-label>
+                            <mat-select formControlName="tipo">
+                              <mat-option value="R"> Reparación (cambiar) </mat-option>
+                              <mat-option value="M"> Mejora (cambiar) </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="input-group flex-nowrap">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">attach_money</i>
+                            </span>
+                          </div>
+                          <mat-form-field class="example-full-width has-label ">
+                            <input
+                              type="number"
+                              name="costo"
+                              matInput
+                              placeholder="Tarifa"
+                              formControlName="costo"
+                              autocomplete="off"
+                            />
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="mr-auto"></div>
+                <div class="ml-auto">
+                  <button
+                    [ngClass]="{ 'px-3': loading }"
+                    type="button"
+                    class="btn btn-next btn-fill btn-primary btn-wd"
+                    (click)="guardar()"
+                  >
+                    <span *ngIf="loading" class="mr-2 spinner-border spinner-border-sm"></span>
+                    <span *ngIf="loading">Guardando</span>
+                    <span *ngIf="!loading">Guardar</span>
+                  </button>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
