@@ -4,7 +4,6 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { LoginGuard } from './commons/guards/login.guard';
 import { RolAdminGuard } from './commons/guards/rol-admin.guard';
-import { GeneralLayoutComponent } from './layouts/general/general-layout.component';
 import { RolAdminAndFuncionarioGuard } from './commons/guards/rol-admin-and-funcionario.guard';
 
 export const AppRoutes: Routes = [
@@ -32,13 +31,13 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'departamento',
-    component: GeneralLayoutComponent,
+    component: AdminLayoutComponent,
     loadChildren: './paginas/departamento/departamento.module#DepartamentoModule',
     canLoad: [LoginGuard, RolAdminAndFuncionarioGuard]
   },
   {
     path: 'reserva',
-    component: GeneralLayoutComponent,
+    component: AdminLayoutComponent,
     loadChildren: './paginas/reserva/reserva.module#ReservaModule',
     canLoad: [LoginGuard, RolAdminAndFuncionarioGuard]
   }

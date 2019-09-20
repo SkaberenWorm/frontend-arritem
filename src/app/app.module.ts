@@ -58,8 +58,6 @@ import { CommonsServiceModule } from './commons/commons-service.module';
 import { EffectsModule } from '@ngrx/effects';
 import { appEffect } from './store/effects';
 import localeES from '@angular/common/locales/es-CL';
-import { FooterClienteModule } from './shared/footer-cliente/footer-cliente.module';
-import { GeneralLayoutComponent } from './layouts/general/general-layout.component';
 
 registerLocaleData(localeES, 'es-CL');
 
@@ -107,7 +105,7 @@ export class MaterialModule {}
     BrowserAnimationsModule,
     FormsModule,
     RouterModule.forRoot(AppRoutes, {
-      useHash: false
+      useHash: true
     }),
     HttpClientModule,
     MaterialModule,
@@ -115,7 +113,6 @@ export class MaterialModule {}
     SidebarModule,
     NavbarModule,
     FooterModule,
-    FooterClienteModule,
     FixedpluginModule,
     CommonsServiceModule,
     StoreModule.forRoot(appReducers),
@@ -132,7 +129,7 @@ export class MaterialModule {}
       useValue: 'es-CL'
     }
   ],
-  declarations: [AppComponent, AdminLayoutComponent, GeneralLayoutComponent, AuthLayoutComponent],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
