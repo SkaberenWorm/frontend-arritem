@@ -37,7 +37,6 @@ export class MantencionFormComponent implements OnInit {
         this.mantencion.id = params['id'];
       }
     });
-    console.log(moment().get('date'));
     config.minDate = {
       year: moment().get('year'),
       month: moment().get('month') + 1,
@@ -75,7 +74,7 @@ export class MantencionFormComponent implements OnInit {
     if (this.fromDate != null || this.fromDate != undefined) {
       const fechaInicio = moment(this.fromDate);
       fechaInicio.month(this.fromDate.month - 1);
-      this.formulario.controls.fechaInicio.setValue(fechaInicio.format('DD/MM/YYYY'));
+      this.formulario.controls.fechaInicio.setValue(fechaInicio.format('DD-MM-YYYY'));
     } else {
       this.formulario.controls.fechaInicio.setValue('');
     }
@@ -83,7 +82,7 @@ export class MantencionFormComponent implements OnInit {
     if (this.toDate != null || this.toDate != undefined) {
       const fechaTermino = moment(this.toDate);
       fechaTermino.month(this.toDate.month - 1);
-      this.formulario.controls.fechaTermino.setValue(fechaTermino.format('DD/MM/YYYY'));
+      this.formulario.controls.fechaTermino.setValue(fechaTermino.format('DD-MM-YYYY'));
     } else {
       this.formulario.controls.fechaTermino.setValue('');
     }
@@ -132,7 +131,7 @@ export class MantencionFormComponent implements OnInit {
     this.formulario.controls.fechaInicio.setValue(this.mantencion.fechaInicio);
     this.formulario.controls.fechaTermino.setValue(this.mantencion.fechaTermino);
     this.formulario.controls.costo.setValue(this.mantencion.costo);
-    this.formulario.controls.tipo.setValue(this.mantencion.tipo);
+    this.formulario.controls.tipo.setValue(this.mantencion.tipo.id);
   }
 
   /**
@@ -143,7 +142,7 @@ export class MantencionFormComponent implements OnInit {
     this.mantencion.fechaInicio = this.formulario.controls.fechaInicio.value;
     this.mantencion.fechaTermino = this.formulario.controls.fechaTermino.value;
     this.mantencion.costo = this.formulario.controls.costo.value;
-    this.mantencion.tipo = this.formulario.controls.tipo.value;
+    this.mantencion.tipo.id = this.formulario.controls.tipo.value;
   }
 
   guardar() {
@@ -155,6 +154,8 @@ export class MantencionFormComponent implements OnInit {
       if (this.mantencion.id === 0) {
         esUsuarioNuevo = true;
       }
+      this.formatearFechas();
+      console.log(this.mantencion);
       this.mantencionService.guardar(this.mantencion).subscribe(result => {
         if (!result.error) {
           this.loading = false;
@@ -185,6 +186,12 @@ export class MantencionFormComponent implements OnInit {
         width: 250
       });
     }
+  }
+
+  formatearFechas() {
+    //yyyy-MM-dd
+    this.mantencion.fechaInicio = moment(this.mantencion.fechaInicio, 'YYYY-MM-DD').toDate();
+    this.mantencion.fechaTermino = moment(this.mantencion.fechaTermino, 'YYYY-MM-DD').toDate();
   }
 
   enviarEmail(email: string, mensaje: string) {

@@ -148,7 +148,7 @@ export class SidebarComponent implements OnInit {
     this.nombreUsuario =
       this._authenticationService.nombre.length > 0
         ? this._authenticationService.nombre
-        : this._authenticationService.obtenerName();
+        : this._authenticationService.obtenerNombre();
 
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {

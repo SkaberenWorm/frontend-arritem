@@ -160,7 +160,7 @@ export class AuthenticationService {
     return this._obtenerUserName(this.token);
   }
 
-  public obtenerName(): string {
+  public obtenerNombre(): string {
     return this.obtenerDatosToken(this.token).nombre;
   }
 
