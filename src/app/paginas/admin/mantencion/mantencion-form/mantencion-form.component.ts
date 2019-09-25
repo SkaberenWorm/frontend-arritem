@@ -44,7 +44,7 @@ export class MantencionFormComponent implements OnInit {
     };
     config.maxDate = { year: moment().get('year') + 4, month: 12, day: 31 };
     this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.toDate = calendar.getNext(calendar.getToday(), 'd', 3);
   }
 
   ngOnInit() {
@@ -61,6 +61,7 @@ export class MantencionFormComponent implements OnInit {
         if (!result.error) {
           this.mantencion = result.resultado;
           this.cargarFormulario();
+          this.cargarNdbCalendar();
         } else {
           this.errorSwal(result.mensaje);
         }
@@ -70,8 +71,21 @@ export class MantencionFormComponent implements OnInit {
     this.cargarRangoFechaEnFormulario();
   }
 
+  cargarNdbCalendar() {
+    const momentFromDate = moment(this.mantencion.fechaInicio);
+    this.fromDate.day = momentFromDate.get('date');
+    this.fromDate.month = momentFromDate.get('month') + 1;
+    this.fromDate.year = momentFromDate.get('year');
+    const momentToDate = moment(this.mantencion.fechaTermino);
+    this.toDate.day = momentToDate.get('date');
+    this.toDate.month = momentToDate.get('month') + 1;
+    this.toDate.year = momentToDate.get('year');
+    console.log(this.fromDate);
+    console.log(this.toDate);
+  }
+
   cargarRangoFechaEnFormulario() {
-    if (this.fromDate != null || this.fromDate != undefined) {
+    if (this.fromDate != null || this.fromDate !== undefined) {
       const fechaInicio = moment(this.fromDate);
       fechaInicio.month(this.fromDate.month - 1);
       this.formulario.controls.fechaInicio.setValue(fechaInicio.format('DD-MM-YYYY'));
@@ -79,7 +93,7 @@ export class MantencionFormComponent implements OnInit {
       this.formulario.controls.fechaInicio.setValue('');
     }
 
-    if (this.toDate != null || this.toDate != undefined) {
+    if (this.toDate != null || this.toDate !== undefined) {
       const fechaTermino = moment(this.toDate);
       fechaTermino.month(this.toDate.month - 1);
       this.formulario.controls.fechaTermino.setValue(fechaTermino.format('DD-MM-YYYY'));
@@ -101,13 +115,7 @@ export class MantencionFormComponent implements OnInit {
   }
 
   isHovered(date: NgbDate) {
-    return (
-      this.fromDate &&
-      !this.toDate &&
-      this.hoveredDate &&
-      date.after(this.fromDate) &&
-      date.before(this.hoveredDate)
-    );
+    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
   }
 
   isInside(date: NgbDate) {
@@ -115,12 +123,7 @@ export class MantencionFormComponent implements OnInit {
   }
 
   isRange(date: NgbDate) {
-    return (
-      date.equals(this.fromDate) ||
-      date.equals(this.toDate) ||
-      this.isInside(date) ||
-      this.isHovered(date)
-    );
+    return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
   }
 
   /**
@@ -128,8 +131,8 @@ export class MantencionFormComponent implements OnInit {
    */
   cargarFormulario() {
     this.formulario.controls.descripcion.setValue(this.mantencion.descripcion);
-    this.formulario.controls.fechaInicio.setValue(this.mantencion.fechaInicio);
-    this.formulario.controls.fechaTermino.setValue(this.mantencion.fechaTermino);
+    this.formulario.controls.fechaInicio.setValue(moment(this.mantencion.fechaInicio).format('DD-MM-YYYY'));
+    this.formulario.controls.fechaTermino.setValue(moment(this.mantencion.fechaTermino).format('DD-MM-YYYY'));
     this.formulario.controls.costo.setValue(this.mantencion.costo);
     this.formulario.controls.tipo.setValue(this.mantencion.tipo.id);
   }
@@ -189,9 +192,12 @@ export class MantencionFormComponent implements OnInit {
   }
 
   formatearFechas() {
-    //yyyy-MM-dd
-    this.mantencion.fechaInicio = moment(this.mantencion.fechaInicio, 'YYYY-MM-DD').toDate();
-    this.mantencion.fechaTermino = moment(this.mantencion.fechaTermino, 'YYYY-MM-DD').toDate();
+    this.mantencion.fechaInicio = moment(this.mantencion.fechaInicio, 'DD-MM-YY')
+      .year(this.fromDate.year - 0)
+      .toDate();
+    this.mantencion.fechaTermino = moment(this.mantencion.fechaTermino, 'DD-MM-YY')
+      .year(this.toDate.year - 0)
+      .toDate();
   }
 
   enviarEmail(email: string, mensaje: string) {

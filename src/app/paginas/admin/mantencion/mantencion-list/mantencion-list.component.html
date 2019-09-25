@@ -53,36 +53,21 @@
                   <tr class="text-left" *ngFor="let mantencion of listaMantenciones">
                     <td>{{ mantencion.id }}</td>
                     <td>{{ mantencion.descripcion }}</td>
-                    <td>{{ mantencion.fechaInicio }}</td>
-                    <td>{{ mantencion.fechaTermino }}</td>
+                    <td>{{ mantencion.fechaInicio | date: 'dd/MMMM/yyyy' }}</td>
+                    <td>{{ mantencion.fechaTermino | date: 'dd/MM/yyyy' }}</td>
                     <td>{{ mantencion.costo }}</td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <a
-                          (click)="verDetalleMantencion(mantencion)"
-                          routerLink="."
-                          mdTooltipClass="{ 'mat-tooltip-arritem': true }"
-                        >
+                        <a (click)="verDetalleMantencion(mantencion)" routerLink="." mdTooltipClass="{ 'mat-tooltip-arritem': true }">
                           <i class="material-icons text-secondary">visibility</i>
                         </a>
-                        <a
-                          [routerLink]="['/admin/mantencion/', mantencion.id, 'edit']"
-                          routerLinkActive="router-link-active"
-                        >
+                        <a [routerLink]="['/admin/mantencion/', mantencion.id, 'edit']" routerLinkActive="router-link-active">
                           <i class="material-icons text-primary px-2">edit</i>
                         </a>
-                        <a
-                          (click)="cambiarEstadoMantencion(mantencion)"
-                          *ngIf="mantencion.activo"
-                          routerLink="."
-                        >
+                        <a (click)="cambiarEstadoMantencion(mantencion)" *ngIf="mantencion.activo" routerLink=".">
                           <i class="material-icons text-danger">close</i>
                         </a>
-                        <a
-                          (click)="cambiarEstadoMantencion(mantencion)"
-                          *ngIf="!mantencion.activo"
-                          routerLink="."
-                        >
+                        <a (click)="cambiarEstadoMantencion(mantencion)" *ngIf="!mantencion.activo" routerLink=".">
                           <i class="material-icons text-success">done</i>
                         </a>
                       </div>

@@ -29,11 +29,12 @@ export class DepartamentoService {
     );
   }
 
-  public guardar(cliente: Departamento): Observable<ResultadoProc<Departamento>> {
-    if (cliente.id > 0) {
-      return this.http.put<ResultadoProc<Departamento>>(this.urlBase, cliente);
+  public guardar(departamento: Departamento): Observable<ResultadoProc<Departamento>> {
+    if (departamento.id > 0) {
+      return this.http.put<ResultadoProc<Departamento>>(this.urlBase, departamento);
     } else {
-      return this.http.post<ResultadoProc<Departamento>>(this.urlBase, cliente);
+      departamento.activo = true;
+      return this.http.post<ResultadoProc<Departamento>>(this.urlBase, departamento);
     }
   }
 }
