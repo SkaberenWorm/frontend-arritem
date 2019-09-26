@@ -10,15 +10,7 @@ import { CommonsServiceModule } from 'src/app/commons/commons-service.module';
 import { MaterialModule } from 'src/app/app.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    UsuarioRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    CommonsServiceModule,
-    MaterialModule
-  ],
+  imports: [CommonModule, UsuarioRoutingModule, FormsModule, ReactiveFormsModule, MatInputModule, CommonsServiceModule, MaterialModule],
   declarations: [UsuarioListComponent, UsuarioFormComponent],
   providers: [UsuarioService]
 })

@@ -7,6 +7,7 @@ import { Util } from 'src/app/commons/util/util';
 import Swal from 'sweetalert2';
 import { NgbDate, NgbCalendar, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { TipoMantencion } from 'src/app/commons/models/tipo-mantencion.model';
 
 @Component({
   selector: 'app-mantencion-form',
@@ -14,12 +15,13 @@ import * as moment from 'moment';
   styleUrls: ['./mantencion-form.component.css']
 })
 export class MantencionFormComponent implements OnInit {
-  public mantencion: Mantencion = new Mantencion();
-  public loading = false;
-  public formulario: FormGroup;
+  mantencion: Mantencion = new Mantencion();
+  loading = false;
+  formulario: FormGroup;
   hoveredDate: NgbDate;
   fromDate: NgbDate;
   toDate: NgbDate;
+  listaTipoMantenciones: Array<TipoMantencion> = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -69,6 +71,17 @@ export class MantencionFormComponent implements OnInit {
     }
 
     this.cargarRangoFechaEnFormulario();
+    this.cargarListadoTipoDeMantenciones();
+  }
+
+  cargarListadoTipoDeMantenciones() {
+    this.mantencionService.listadoTiposDeMantenciones().subscribe(result => {
+      if (!result.error) {
+        this.listaTipoMantenciones = result.resultado;
+      } else {
+        this.errorSwal(result.mensaje);
+      }
+    });
   }
 
   cargarNdbCalendar() {
@@ -80,8 +93,6 @@ export class MantencionFormComponent implements OnInit {
     this.toDate.day = momentToDate.get('date');
     this.toDate.month = momentToDate.get('month') + 1;
     this.toDate.year = momentToDate.get('year');
-    console.log(this.fromDate);
-    console.log(this.toDate);
   }
 
   cargarRangoFechaEnFormulario() {
@@ -158,7 +169,6 @@ export class MantencionFormComponent implements OnInit {
         esUsuarioNuevo = true;
       }
       this.formatearFechas();
-      console.log(this.mantencion);
       this.mantencionService.guardar(this.mantencion).subscribe(result => {
         if (!result.error) {
           this.loading = false;

@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Util } from 'src/app/commons/util/util';
 import { UsuarioService } from '../usuario.service';
+import { UtilValidation } from 'src/app/commons/util/util.validation';
 
 declare const $: any;
 interface FileReaderEventTarget extends EventTarget {
@@ -34,7 +35,8 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
     private formBuilder: FormBuilder,
     private activadedRouter: ActivatedRoute,
     private usuarioService: UsuarioService,
-    private router: Router
+    private router: Router,
+    private utilValidation: UtilValidation
   ) {
     /**
      * Escuchamos si viene por URL el parametro ID para la saber si es un nuevo usuario o una edición de este
@@ -47,23 +49,38 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.formulario = new FormGroup({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required]),
-      celular: new FormControl(),
-      run: new FormControl('', [Validators.required])
-    });
-
     if (this.usuario.id > 0) {
       this.usuarioService.getById(this.usuario.id).subscribe(result => {
         if (!result.error) {
           this.usuario = result.resultado;
+          console.log(this.usuario);
           this.cargarFormulario();
         } else {
           console.log('Error');
         }
       });
+      this.formulario = new FormGroup({
+        firstName: new FormControl('', [Validators.required]),
+        lastName: new FormControl('', [Validators.required]),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        celular: new FormControl('', this.utilValidation.celularValido),
+        run: new FormControl('', [Validators.required, this.utilValidation.rutValido])
+      });
+    } else {
+      this.formulario = new FormGroup(
+        {
+          firstName: new FormControl('', [Validators.required]),
+          lastName: new FormControl('', [Validators.required]),
+          email: new FormControl('', [Validators.required, Validators.email]),
+          celular: new FormControl('', this.utilValidation.celularValido),
+          run: new FormControl('', [Validators.required, this.utilValidation.rutValido]),
+          password: new FormControl('', [Validators.required]),
+          repassword: new FormControl()
+        },
+        {
+          validators: UtilValidation.MatchPassword
+        }
+      );
     }
     $('#wizard-picture').change(function() {
       const input = $(this);
@@ -104,6 +121,13 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
     this.usuario.email = this.formulario.controls.email.value;
     this.usuario.celular = this.formulario.controls.celular.value;
     this.usuario.run = this.formulario.controls.run.value;
+    if (this.usuario.id === 0) {
+      if (this.formulario.controls.password.value !== null) {
+        if (this.formulario.controls.password.value.trim() !== '') {
+          this.usuario.password = this.formulario.controls.password.value;
+        }
+      }
+    }
   }
 
   guardar() {
@@ -113,41 +137,22 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
       this.cargarUsuario();
       let esUsuarioNuevo = false;
       if (this.usuario.id === 0) {
-        this.usuario.password = Math.random()
-          .toString(36)
-          .slice(2);
         esUsuarioNuevo = true;
       }
       this.usuarioService.guardar(this.usuario).subscribe(result => {
         if (!result.error) {
           this.loading = false;
-          Swal.fire({
-            title: 'Exito',
-            type: 'success',
-            text: result.mensaje
-          });
+          this.successSwal(result.mensaje);
           if (esUsuarioNuevo) {
-            const mensaje = 'Su password es: ' + this.usuario.password;
+            const mensaje = 'Ya cuenta con acceso al sistema https://admin-arritem.atton-it.cl';
+            this.usuario.email = 'admin-arritem@atton-it.cl';
             this.enviarEmail(this.usuario.email, mensaje);
             this.limpiarFormulario();
           }
         } else {
           this.loading = false;
-          Swal.fire({
-            title: 'Fallo',
-            type: 'error',
-            text: result.mensaje
-          });
+          this.errorSwal(result.mensaje);
         }
-      });
-    } else {
-      Swal.fire({
-        position: 'top-end',
-        type: 'warning',
-        html: '<b>Los campos en rojo son obligatorios</b>',
-        showConfirmButton: false,
-        timer: 2000,
-        width: 250
       });
     }
   }
@@ -158,6 +163,29 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
 
   limpiarFormulario() {
     this.formulario.reset();
+  }
+
+  errorSwal(mensaje: string) {
+    Swal.fire({
+      title: 'Error',
+      type: 'error',
+      text: mensaje
+    });
+  }
+
+  warningSwal(mensaje: string) {
+    Swal.fire({
+      type: 'warning',
+      text: mensaje
+    });
+  }
+
+  successSwal(mensaje: string) {
+    Swal.fire({
+      title: 'Hecho!',
+      type: 'success',
+      text: mensaje
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-md-11 mx-sm-3 mx-md-1 col-lg-12">
+      <div class="col-md-12 mx-sm-3 mx-md-1 col-lg-11 col-xl-9">
         <div class="card card-stats">
           <div class="card-header py-0">
             <div class="row">
@@ -32,7 +32,7 @@
                   <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Precio base</th>
+                    <!-- <th>Precio base</th> -->
                     <th></th>
                   </tr>
                 </thead>
@@ -46,30 +46,19 @@
                   <tr class="text-left" *ngFor="let servicio of listaServicios">
                     <td>{{ servicio.id }}</td>
                     <td>{{ servicio.nombre }}</td>
-                    <td>{{ servicio.precio }}</td>
+                    <!-- <td>{{ servicio.precio }}</td> -->
                     <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
                         <a (click)="openModal(servicio)">
                           <i class="material-icons text-secondary">visibility</i>
                         </a>
-                        <a
-                          [routerLink]="['/admin/servicio/', servicio.id, 'edit']"
-                          routerLinkActive="router-link-active"
-                        >
+                        <a [routerLink]="['/admin/servicio/', servicio.id, 'edit']" routerLinkActive="router-link-active">
                           <i class="material-icons text-primary px-2">edit</i>
                         </a>
-                        <a
-                          (click)="cambiarEstadoServicio(servicio)"
-                          *ngIf="servicio.activo"
-                          routerLink="."
-                        >
+                        <a (click)="cambiarEstadoServicio(servicio)" *ngIf="servicio.activo" routerLink=".">
                           <i class="material-icons text-danger">close</i>
                         </a>
-                        <a
-                          (click)="cambiarEstadoServicio(servicio)"
-                          *ngIf="!servicio.activo"
-                          routerLink="."
-                        >
+                        <a (click)="cambiarEstadoServicio(servicio)" *ngIf="!servicio.activo" routerLink=".">
                           <i class="material-icons text-success">done</i>
                         </a>
                       </div>

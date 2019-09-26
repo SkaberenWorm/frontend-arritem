@@ -104,9 +104,11 @@
                           </div>
                           <mat-form-field>
                             <mat-label>Causa</mat-label>
-                            <mat-select formControlName="tipo">
-                              <mat-option value="2"> Reparación (cambiar) </mat-option>
-                              <mat-option value="1"> Mejora (cambiar) </mat-option>
+
+                            <mat-select formControlName="tipo" name="tipo">
+                              <mat-option *ngFor="let tipo of listaTipoMantenciones" [value]="tipo.id">
+                                {{ tipo.descripcion }}
+                              </mat-option>
                             </mat-select>
                           </mat-form-field>
                         </div>
@@ -117,14 +119,7 @@
                             </span>
                           </div>
                           <mat-form-field class="example-full-width has-label ">
-                            <input
-                              type="number"
-                              name="costo"
-                              matInput
-                              placeholder="Tarifa"
-                              formControlName="costo"
-                              autocomplete="off"
-                            />
+                            <input type="number" name="costo" matInput placeholder="Tarifa" formControlName="costo" autocomplete="off" />
                           </mat-form-field>
                         </div>
                       </div>
@@ -135,12 +130,7 @@
               <div class="card-footer">
                 <div class="mr-auto"></div>
                 <div class="ml-auto">
-                  <button
-                    [ngClass]="{ 'px-3': loading }"
-                    type="button"
-                    class="btn btn-next btn-fill btn-primary btn-wd"
-                    (click)="guardar()"
-                  >
+                  <button [ngClass]="{ 'px-3': loading }" type="button" class="btn btn-next btn-fill btn-primary btn-wd" (click)="guardar()">
                     <span *ngIf="loading" class="mr-2 spinner-border spinner-border-sm"></span>
                     <span *ngIf="loading">Guardando</span>
                     <span *ngIf="!loading">Guardar</span>

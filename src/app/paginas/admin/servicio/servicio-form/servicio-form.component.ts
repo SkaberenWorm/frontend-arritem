@@ -35,7 +35,7 @@ export class ServicioFormComponent implements OnInit {
   ngOnInit() {
     this.formulario = new FormGroup({
       nombre: new FormControl('', [Validators.required]),
-      precio: new FormControl('', [Validators.required]),
+      //precio: new FormControl('', [Validators.required]),
       activo: new FormControl()
     });
 
@@ -56,7 +56,7 @@ export class ServicioFormComponent implements OnInit {
    */
   cargarFormulario() {
     this.formulario.controls.nombre.setValue(this.servicio.nombre);
-    this.formulario.controls.precio.setValue(this.servicio.precio);
+    //this.formulario.controls.precio.setValue(this.servicio.precio);
   }
 
   /**
@@ -64,7 +64,7 @@ export class ServicioFormComponent implements OnInit {
    */
   cargarServicio() {
     this.servicio.nombre = this.formulario.controls.nombre.value;
-    this.servicio.precio = this.formulario.controls.precio.value;
+    //this.servicio.precio = this.formulario.controls.precio.value;
   }
 
   guardar() {

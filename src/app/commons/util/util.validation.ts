@@ -151,6 +151,7 @@ export class UtilValidation {
       };
     }
   };
+
   setFormForValidate(form: FormGroup) {
     Object.keys(form.controls).forEach(field => {
       const control = form.get(field);

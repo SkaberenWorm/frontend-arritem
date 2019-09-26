@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-md-12 col-lg-11 ">
+      <div class="col-md-12 col-lg-11 col-xl-9">
         <div class="wizard-container">
           <div class="card card-wizard" data-color="uft" id="wizardProfile">
             <form [formGroup]="formulario">
@@ -17,12 +17,7 @@
                       <div class="col-sm-4">
                         <div class="picture-container">
                           <div class="picture">
-                            <img
-                              src="./assets/img/default-avatar.png"
-                              class="picture-src"
-                              id="wizardPicturePreview"
-                              title=""
-                            />
+                            <img src="./assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" />
                             <input type="file" id="wizard-picture" />
                           </div>
                           <h6 class="description">Seleccione imagen</h6>
@@ -36,14 +31,15 @@
                             </span>
                           </div>
                           <mat-form-field class="example-full-width has-label">
-                            <input
-                              type="text"
-                              name="run"
-                              matInput
-                              placeholder="Run"
-                              formControlName="run"
-                              autocomplete="off"
-                            />
+                            <input type="text" name="run" matInput placeholder="Run" formControlName="run" autocomplete="off" />
+                            <mat-error *ngIf="formulario.controls['run'].invalid">
+                              <ng-container *ngIf="formulario.controls['run'].errors?.required">
+                                El rut es obligatorio
+                              </ng-container>
+                              <ng-container *ngIf="formulario.controls['run'].errors?.rutValido">
+                                El rut no es correcto
+                              </ng-container>
+                            </mat-error>
                           </mat-form-field>
                         </div>
 
@@ -54,14 +50,12 @@
                             </span>
                           </div>
                           <mat-form-field class="example-full-width has-label">
-                            <input
-                              type="text"
-                              name="firstname"
-                              matInput
-                              placeholder="Nombre"
-                              formControlName="firstName"
-                              autocomplete="off"
-                            />
+                            <input type="text" name="firstname" matInput placeholder="Nombre" formControlName="firstName" autocomplete="off" />
+                            <mat-error *ngIf="formulario.controls['firstName'].invalid">
+                              <ng-container *ngIf="formulario.controls['firstName'].errors?.required">
+                                El nombre es obligatorio
+                              </ng-container>
+                            </mat-error>
                           </mat-form-field>
                         </div>
                         <div class="input-group flex-nowrap">
@@ -71,14 +65,12 @@
                             </span>
                           </div>
                           <mat-form-field class="example-full-width has-label">
-                            <input
-                              type="text"
-                              name="lastname"
-                              matInput
-                              placeholder="Apellidos"
-                              formControlName="lastName"
-                              autocomplete="off"
-                            />
+                            <input type="text" name="lastname" matInput placeholder="Apellidos" formControlName="lastName" autocomplete="off" />
+                            <mat-error *ngIf="formulario.controls['lastName'].invalid">
+                              <ng-container *ngIf="formulario.controls['lastName'].errors?.required">
+                                El apellido es obligatorio
+                              </ng-container>
+                            </mat-error>
                           </mat-form-field>
                         </div>
                       </div>
@@ -91,14 +83,15 @@
                             </span>
                           </div>
                           <mat-form-field class="example-full-width">
-                            <input
-                              matInput
-                              placeholder="Email"
-                              type="email"
-                              name="email"
-                              formControlName="email"
-                              autocomplete="off"
-                            />
+                            <input matInput placeholder="Email" type="email" name="email" formControlName="email" autocomplete="off" />
+                            <mat-error *ngIf="formulario.controls['email'].invalid">
+                              <ng-container *ngIf="formulario.controls['email'].errors?.required">
+                                El email es obligatorio
+                              </ng-container>
+                              <ng-container *ngIf="formulario.controls['email'].errors?.email">
+                                El formato no es el correcto
+                              </ng-container>
+                            </mat-error>
                           </mat-form-field>
                         </div>
                       </div>
@@ -111,14 +104,55 @@
                             </span>
                           </div>
                           <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Celular" type="text" name="celular" formControlName="celular" autocomplete="off" />
+                            <mat-error *ngIf="formulario.controls['celular'].invalid">
+                              <ng-container *ngIf="formulario.controls['celular'].errors?.celularValido">
+                                El formato del celular es inválido (+569XXXXXXXX)
+                              </ng-container>
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="col-md-10 mt-md-3" *ngIf="!usuario.id > 0">
+                        <div class="input-group flex-nowrap">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">vpn_key</i>
+                            </span>
+                          </div>
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Password" type="password" name="password" formControlName="password" autocomplete="off" />
+                            <mat-error *ngIf="formulario.controls['password'].invalid">
+                              <ng-container *ngIf="formulario.controls['password'].errors?.required">
+                                La password es obligatoria
+                              </ng-container>
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+
+                      <div class="col-md-10 mt-md-3" *ngIf="!usuario.id > 0">
+                        <div class="input-group flex-nowrap">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
+                              <i class="material-icons">vpn_key</i>
+                            </span>
+                          </div>
+                          <mat-form-field class="example-full-width">
                             <input
                               matInput
-                              placeholder="Celular/Teléfono"
-                              type="text"
-                              name="celular"
-                              formControlName="celular"
+                              placeholder="Confirme password"
+                              type="password"
+                              name="repassword"
+                              formControlName="repassword"
                               autocomplete="off"
                             />
+                            <mat-error *ngIf="formulario.controls['repassword'].invalid">
+                              <ng-container *ngIf="formulario.controls['repassword'].errors?.matchPassword">
+                                La password debe coincidir
+                              </ng-container>
+                            </mat-error>
                           </mat-form-field>
                         </div>
                       </div>
@@ -129,12 +163,7 @@
               <div class="card-footer">
                 <div class="mr-auto"></div>
                 <div class="ml-auto">
-                  <button
-                    [ngClass]="{ 'px-3': loading }"
-                    type="button"
-                    class="btn btn-next btn-fill btn-primary btn-wd"
-                    (click)="guardar()"
-                  >
+                  <button [ngClass]="{ 'px-3': loading }" type="button" class="btn btn-next btn-fill btn-primary btn-wd" (click)="guardar()">
                     <span *ngIf="loading" class="mr-2 spinner-border spinner-border-sm"></span>
                     <span *ngIf="loading">Guardando</span>
                     <span *ngIf="!loading">Guardar</span>

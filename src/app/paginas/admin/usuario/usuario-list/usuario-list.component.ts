@@ -80,6 +80,9 @@ export class UsuarioListComponent implements OnInit {
       }
     });
   }
+  newUser() {
+    this.router.navigate(['/admin/usuario/new']);
+  }
 
   errorSwal(mensaje: string) {
     Swal.fire({
@@ -87,10 +90,6 @@ export class UsuarioListComponent implements OnInit {
       type: 'error',
       text: mensaje
     });
-  }
-
-  newUser() {
-    this.router.navigate(['/admin/usuario/new']);
   }
 
   warningSwal(mensaje: string) {

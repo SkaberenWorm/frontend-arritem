@@ -5,6 +5,7 @@ import { ResultadoProc } from 'src/app/commons/interfaces/resultado-proc.interfa
 import { Mantencion } from 'src/app/commons/models/mantencion.model';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { TipoMantencion } from 'src/app/commons/models/tipo-mantencion.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,17 @@ export class MantencionService {
   public listado(): Observable<ResultadoProc<Array<Mantencion>>> {
     return this.http.get<ResultadoProc<Array<Mantencion>>>(`${this.urlBase}/all`).pipe(
       map(result => {
-        console.log(result.resultado);
+        return result;
+      })
+    );
+  }
+
+  /**
+   * Trae los tipos de mantenciones
+   */
+  public listadoTiposDeMantenciones(): Observable<ResultadoProc<Array<TipoMantencion>>> {
+    return this.http.get<ResultadoProc<Array<TipoMantencion>>>(`${this.urlBase}/tipo/all/active`).pipe(
+      map(result => {
         return result;
       })
     );
@@ -28,7 +39,6 @@ export class MantencionService {
   public getById(id: number): Observable<ResultadoProc<Mantencion>> {
     return this.http.get<ResultadoProc<Mantencion>>(`${this.urlBase}/${id}`).pipe(
       map(result => {
-        console.log(result.resultado);
         return result;
       })
     );

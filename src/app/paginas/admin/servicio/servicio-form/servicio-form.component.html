@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-md-12 col-lg-11 ">
+      <div class="col-md-12 col-lg-11 col-xl-9">
         <div class="wizard-container">
           <div class="card card-wizard" data-color="uft" id="wizardProfile">
             <form [formGroup]="formulario">
@@ -14,7 +14,7 @@
                 <div class="tab-content">
                   <div class="tab-pane active">
                     <div class="row justify-content-center">
-                      <div class="col-sm-10 col-md-8 mt-5">
+                      <div class="col-sm-10 col-md-8 mt-5 col-xl-6">
                         <div class="input-group flex-nowrap">
                           <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -22,18 +22,11 @@
                             </span>
                           </div>
                           <mat-form-field class="example-full-width has-label">
-                            <input
-                              type="text"
-                              name="nombre"
-                              matInput
-                              placeholder="Nombre del servicio"
-                              formControlName="nombre"
-                              autocomplete="off"
-                            />
+                            <input type="text" name="nombre" matInput placeholder="Nombre del servicio" formControlName="nombre" autocomplete="off" />
                           </mat-form-field>
                         </div>
 
-                        <div class="input-group flex-nowrap">
+                        <!-- <div class="input-group flex-nowrap">
                           <div class="input-group-prepend">
                             <span class="input-group-text">
                               <i class="material-icons">attach_money</i>
@@ -49,7 +42,7 @@
                               autocomplete="off"
                             />
                           </mat-form-field>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                   </div>
@@ -58,12 +51,7 @@
               <div class="card-footer">
                 <div class="mr-auto"></div>
                 <div class="ml-auto">
-                  <button
-                    [ngClass]="{ 'px-3': loading }"
-                    type="button"
-                    class="btn btn-next btn-fill btn-primary btn-wd"
-                    (click)="guardar()"
-                  >
+                  <button [ngClass]="{ 'px-3': loading }" type="button" class="btn btn-next btn-fill btn-primary btn-wd" (click)="guardar()">
                     <span *ngIf="loading" class="mr-2 spinner-border spinner-border-sm"></span>
                     <span *ngIf="loading">Guardando</span>
                     <span *ngIf="!loading">Guardar</span>

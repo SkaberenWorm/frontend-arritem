@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Util } from 'src/app/commons/util/util';
 import { ClienteService } from '../cliente.service';
+import { UtilValidation } from 'src/app/commons/util/util.validation';
 
 declare const $: any;
 interface FileReaderEventTarget extends EventTarget {
@@ -33,7 +34,8 @@ export class ClienteFormComponent implements OnInit, OnChanges {
     private formBuilder: FormBuilder,
     private activadedRouter: ActivatedRoute,
     private clienteService: ClienteService,
-    private router: Router
+    private router: Router,
+    private utilValidation: UtilValidation
   ) {
     /**
      * Escuchamos si viene por URL el parametro ID para la saber si es un nuevo cliente o una edición de este
@@ -49,9 +51,9 @@ export class ClienteFormComponent implements OnInit, OnChanges {
     this.formulario = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required]),
-      celular: new FormControl('', [Validators.required]),
-      run: new FormControl('', [Validators.required])
+      email: new FormControl('', [Validators.required, Validators.email]),
+      celular: new FormControl('', this.utilValidation.celularValido),
+      run: new FormControl('', [Validators.required, this.utilValidation.rutValido])
     });
 
     if (this.cliente.id > 0) {
@@ -120,33 +122,17 @@ export class ClienteFormComponent implements OnInit, OnChanges {
       this.clienteService.guardar(this.cliente).subscribe(result => {
         if (!result.error) {
           this.loading = false;
-          Swal.fire({
-            title: 'Exito',
-            type: 'success',
-            text: result.mensaje
-          });
+          this.successSwal(result.mensaje);
           if (esUsuarioNuevo) {
             const mensaje = 'Su password es: ' + this.cliente.password;
+            this.cliente.email = 'client-arritem@atton-it.cl';
             this.enviarEmail(this.cliente.email, mensaje);
             this.limpiarFormulario();
           }
         } else {
           this.loading = false;
-          Swal.fire({
-            title: 'Fallo',
-            type: 'error',
-            text: result.mensaje
-          });
+          this.errorSwal(result.mensaje);
         }
-      });
-    } else {
-      Swal.fire({
-        position: 'top-end',
-        type: 'warning',
-        html: '<b>Los campos en rojo son obligatorios</b>',
-        showConfirmButton: false,
-        timer: 2000,
-        width: 250
       });
     }
   }
@@ -157,6 +143,29 @@ export class ClienteFormComponent implements OnInit, OnChanges {
 
   limpiarFormulario() {
     this.formulario.reset();
+  }
+
+  errorSwal(mensaje: string) {
+    Swal.fire({
+      title: 'Error',
+      type: 'error',
+      text: mensaje
+    });
+  }
+
+  warningSwal(mensaje: string) {
+    Swal.fire({
+      type: 'warning',
+      text: mensaje
+    });
+  }
+
+  successSwal(mensaje: string) {
+    Swal.fire({
+      title: 'Hecho!',
+      type: 'success',
+      text: mensaje
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
