@@ -114,7 +114,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-10 mt-md-3" *ngIf="!usuario.id > 0">
+                      <div class="col-md-10 mt-md-3" *ngIf="!seEstaEditando()">
                         <div class="input-group flex-nowrap">
                           <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -132,7 +132,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-10 mt-md-3" *ngIf="!usuario.id > 0">
+                      <div class="col-md-10 mt-md-3" *ngIf="!seEstaEditando()">
                         <div class="input-group flex-nowrap">
                           <div class="input-group-prepend">
                             <span class="input-group-text">

@@ -28,7 +28,6 @@ interface FileReaderEvent extends Event {
 export class UsuarioFormComponent implements OnInit, OnChanges {
   public usuario: Usuario = new Usuario();
   public loading = false;
-
   public formulario: FormGroup;
 
   constructor(
@@ -127,6 +126,14 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
           this.usuario.password = this.formulario.controls.password.value;
         }
       }
+    }
+  }
+
+  seEstaEditando(): boolean {
+    if (this.usuario.id > 0) {
+      return true;
+    } else {
+      return false;
     }
   }
 
