@@ -39,8 +39,8 @@ export class UsuarioService {
     } else {
       // Agregar
       usuario.activo = true;
-      // Rol 3 = usuario
-      usuario.rol.id = 3;
+      // Rol 3 = Administrador
+      usuario.rol.id = 1;
       return this.http.post<ResultadoProc<Usuario>>(this.urlBase, usuario);
     }
   }
