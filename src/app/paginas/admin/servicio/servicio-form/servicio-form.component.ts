@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { Servicio } from 'src/app/commons/models/servicio.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServicioService } from '../servicio.service';
+import { UtilAlertService } from 'src/app/commons/util/util-alert.service';
 
 @Component({
   selector: 'app-servicio-form',
@@ -20,7 +21,8 @@ export class ServicioFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private activadedRouter: ActivatedRoute,
     private servicioService: ServicioService,
-    private router: Router
+    private router: Router,
+    private alert: UtilAlertService
   ) {
     /**
      * Escuchamos si viene por URL el parametro ID para la saber si es un nuevo servicio o una edición de este
@@ -34,7 +36,7 @@ export class ServicioFormComponent implements OnInit {
 
   ngOnInit() {
     this.formulario = new FormGroup({
-      nombre: new FormControl('', [Validators.required]),
+      nombre: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       //precio: new FormControl('', [Validators.required]),
       activo: new FormControl()
     });
@@ -44,8 +46,6 @@ export class ServicioFormComponent implements OnInit {
         if (!result.error) {
           this.servicio = result.resultado;
           this.cargarFormulario();
-        } else {
-          console.log('Error');
         }
       });
     }
@@ -79,31 +79,14 @@ export class ServicioFormComponent implements OnInit {
       this.servicioService.guardar(this.servicio).subscribe(result => {
         if (!result.error) {
           this.loading = false;
-          Swal.fire({
-            title: 'Exito',
-            type: 'success',
-            text: result.mensaje
-          });
+          this.alert.successSwal(result.mensaje);
           if (esnuevo) {
             this.limpiarFormulario();
           }
         } else {
           this.loading = false;
-          Swal.fire({
-            title: 'Fallo',
-            type: 'error',
-            text: result.mensaje
-          });
+          this.alert.errorSwal(result.mensaje);
         }
-      });
-    } else {
-      Swal.fire({
-        position: 'top-end',
-        type: 'warning',
-        html: '<b>Los campos en rojo son obligatorios</b>',
-        showConfirmButton: false,
-        timer: 2000,
-        width: 250
       });
     }
   }

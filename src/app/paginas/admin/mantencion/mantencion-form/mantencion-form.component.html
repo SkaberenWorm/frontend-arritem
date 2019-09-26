@@ -104,7 +104,6 @@
                           </div>
                           <mat-form-field>
                             <mat-label>Causa</mat-label>
-
                             <mat-select formControlName="tipo" name="tipo">
                               <mat-option *ngFor="let tipo of listaTipoMantenciones" [value]="tipo.id">
                                 {{ tipo.descripcion }}
@@ -112,6 +111,7 @@
                             </mat-select>
                           </mat-form-field>
                         </div>
+
                         <div class="input-group flex-nowrap">
                           <div class="input-group-prepend">
                             <span class="input-group-text">

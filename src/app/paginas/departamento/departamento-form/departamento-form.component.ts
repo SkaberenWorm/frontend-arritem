@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Departamento } from 'src/app/commons/models/departamento.model';
 import Swal from 'sweetalert2';
 import { Util } from 'src/app/commons/util/util';
+import { UtilAlertService } from 'src/app/commons/util/util-alert.service';
 
 @Component({
   selector: 'app-departamento-form',
@@ -20,7 +21,8 @@ export class DepartamentoFormComponent implements OnInit {
   constructor(
     private activadedRouter: ActivatedRoute,
     private departamentoService: DepartamentoService,
-    private config: NgbCarouselConfig
+    private config: NgbCarouselConfig,
+    private alert: UtilAlertService
   ) {
     config.interval = 10000;
     config.wrap = false;
@@ -38,9 +40,9 @@ export class DepartamentoFormComponent implements OnInit {
 
   ngOnInit() {
     this.formulario = new FormGroup({
-      nombre: new FormControl(),
-      direccion: new FormControl('', [Validators.required]),
-      tarifa: new FormControl('', [Validators.required]),
+      nombre: new FormControl('', [Validators.maxLength(50)]),
+      direccion: new FormControl('', [Validators.required, Validators.maxLength(200)]),
+      tarifa: new FormControl('', [Validators.required, Validators.min(0)]),
       estado: new FormControl('', [Validators.required]),
       activo: new FormControl()
     });
@@ -86,52 +88,19 @@ export class DepartamentoFormComponent implements OnInit {
       this.departamentoService.guardar(this.departamento).subscribe(result => {
         if (!result.error) {
           this.loading = false;
-          Swal.fire({
-            title: 'Exito',
-            type: 'success',
-            text: result.mensaje
-          });
+          this.alert.successSwal(result.mensaje);
           if (esnuevo) {
             this.limpiarFormulario();
           }
         } else {
           this.loading = false;
-          Swal.fire({
-            title: 'Fallo',
-            type: 'error',
-            text: result.mensaje
-          });
+          this.alert.errorSwal(result.mensaje);
         }
-      });
-    } else {
-      Swal.fire({
-        position: 'top-end',
-        type: 'warning',
-        html: '<b>Los campos en rojo son obligatorios</b>',
-        showConfirmButton: false,
-        timer: 2000,
-        width: 250
       });
     }
   }
 
   limpiarFormulario() {
     this.formulario.reset();
-  }
-
-  errorSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Error',
-      type: 'error',
-      text: mensaje
-    });
-  }
-
-  successSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Hecho!',
-      type: 'success',
-      text: mensaje
-    });
   }
 }

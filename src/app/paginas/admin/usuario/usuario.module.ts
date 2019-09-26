@@ -8,10 +8,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material';
 import { CommonsServiceModule } from 'src/app/commons/commons-service.module';
 import { MaterialModule } from 'src/app/app.module';
+import { RolService } from './rol.service';
 
 @NgModule({
   imports: [CommonModule, UsuarioRoutingModule, FormsModule, ReactiveFormsModule, MatInputModule, CommonsServiceModule, MaterialModule],
   declarations: [UsuarioListComponent, UsuarioFormComponent],
-  providers: [UsuarioService]
+  providers: [UsuarioService, RolService]
 })
 export class UsuarioModule {}

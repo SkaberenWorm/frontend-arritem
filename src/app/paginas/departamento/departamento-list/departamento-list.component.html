@@ -6,10 +6,7 @@
           <div class="card-header py-0">
             <div class="row">
               <div class="col">
-                <button
-                  class="btn btn-sm btn-outline-primary mt-3 px-2"
-                  (click)="newDepartamento()"
-                >
+                <button class="btn btn-sm btn-outline-primary mt-3 px-2" (click)="newDepartamento()">
                   Nuevo departamento
                 </button>
               </div>
@@ -33,7 +30,6 @@
               <table class="table">
                 <thead class="text-primary text-left">
                   <tr>
-                    <th>ID</th>
                     <th>Dirección</th>
                     <th>Tarifa</th>
                     <th>Estado</th>
@@ -48,37 +44,22 @@
                   </tr>
 
                   <tr class="text-left" *ngFor="let departamento of listaDepartamentos">
-                    <td>{{ departamento.id }}</td>
                     <td>{{ departamento.direccion }}</td>
                     <td>${{ departamento.tarifa }}</td>
                     <td *ngIf="departamento.estado == 'D'">Disponible</td>
                     <td *ngIf="departamento.estado == 'M'">En mantención</td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <a
-                          [routerLink]="['/departamento/', departamento.id, 'view']"
-                          routerLinkActive="router-link-active"
-                        >
+                        <a [routerLink]="['/departamento/', departamento.id, 'view']" routerLinkActive="router-link-active">
                           <i class="material-icons text-secondary">visibility</i>
                         </a>
-                        <a
-                          [routerLink]="['/departamento/', departamento.id, 'edit']"
-                          routerLinkActive="router-link-active"
-                        >
+                        <a [routerLink]="['/departamento/', departamento.id, 'edit']" routerLinkActive="router-link-active">
                           <i class="material-icons text-primary px-2">edit</i>
                         </a>
-                        <a
-                          (click)="cambiarEstadoDepartamento(departamento)"
-                          *ngIf="departamento.activo"
-                          routerLink="."
-                        >
+                        <a (click)="cambiarEstadoDepartamento(departamento)" *ngIf="departamento.activo" routerLink=".">
                           <i class="material-icons text-danger">close</i>
                         </a>
-                        <a
-                          (click)="cambiarEstadoDepartamento(departamento)"
-                          *ngIf="!departamento.activo"
-                          routerLink="."
-                        >
+                        <a (click)="cambiarEstadoDepartamento(departamento)" *ngIf="!departamento.activo" routerLink=".">
                           <i class="material-icons text-success">done</i>
                         </a>
                       </div>

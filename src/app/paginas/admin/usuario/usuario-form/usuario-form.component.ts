@@ -9,6 +9,9 @@ import Swal from 'sweetalert2';
 import { Util } from 'src/app/commons/util/util';
 import { UsuarioService } from '../usuario.service';
 import { UtilValidation } from 'src/app/commons/util/util.validation';
+import { RolService } from '../rol.service';
+import { Rol } from 'src/app/commons/models/rol.model';
+import { UtilAlertService } from 'src/app/commons/util/util-alert.service';
 
 declare const $: any;
 interface FileReaderEventTarget extends EventTarget {
@@ -29,13 +32,16 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
   public usuario: Usuario = new Usuario();
   public loading = false;
   public formulario: FormGroup;
+  public listadoRoles: Array<Rol> = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private activadedRouter: ActivatedRoute,
     private usuarioService: UsuarioService,
+    private rolService: RolService,
     private router: Router,
-    private utilValidation: UtilValidation
+    private utilValidation: UtilValidation,
+    private alert: UtilAlertService
   ) {
     /**
      * Escuchamos si viene por URL el parametro ID para la saber si es un nuevo usuario o una edición de este
@@ -45,6 +51,10 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
         this.usuario.id = params['id'];
       }
     });
+
+    if (this.usuario.id === undefined) {
+      this.usuario.id = 0;
+    }
   }
 
   ngOnInit() {
@@ -52,10 +62,9 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
       this.usuarioService.getById(this.usuario.id).subscribe(result => {
         if (!result.error) {
           this.usuario = result.resultado;
-          console.log(this.usuario);
           this.cargarFormulario();
         } else {
-          console.log('Error');
+          this.alert.errorSwal(result.mensaje);
         }
       });
       this.formulario = new FormGroup({
@@ -63,6 +72,7 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
         lastName: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.email]),
         celular: new FormControl('', this.utilValidation.celularValido),
+        rol: new FormControl('', [Validators.required]),
         run: new FormControl('', [Validators.required, this.utilValidation.rutValido])
       });
     } else {
@@ -72,6 +82,7 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
           lastName: new FormControl('', [Validators.required]),
           email: new FormControl('', [Validators.required, Validators.email]),
           celular: new FormControl('', this.utilValidation.celularValido),
+          rol: new FormControl('', [Validators.required]),
           run: new FormControl('', [Validators.required, this.utilValidation.rutValido]),
           password: new FormControl('', [Validators.required]),
           repassword: new FormControl()
@@ -98,6 +109,8 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
         console.log(input[0].files[0]);
       }
     });
+
+    this.cargarListadoRoles();
   }
 
   /**
@@ -109,6 +122,17 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
     this.formulario.controls.email.setValue(this.usuario.email);
     this.formulario.controls.celular.setValue(this.usuario.celular);
     this.formulario.controls.run.setValue(this.usuario.run);
+    this.formulario.controls.rol.setValue(this.usuario.rol.id);
+  }
+
+  cargarListadoRoles() {
+    this.rolService.listado().subscribe(result => {
+      if (!result.error) {
+        this.listadoRoles = result.resultado;
+      } else {
+        this.alert.errorSwal(result.mensaje);
+      }
+    });
   }
 
   /**
@@ -120,6 +144,7 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
     this.usuario.email = this.formulario.controls.email.value;
     this.usuario.celular = this.formulario.controls.celular.value;
     this.usuario.run = this.formulario.controls.run.value;
+    this.usuario.rol.id = this.formulario.controls.rol.value;
     if (this.usuario.id === 0) {
       if (this.formulario.controls.password.value !== null) {
         if (this.formulario.controls.password.value.trim() !== '') {
@@ -149,7 +174,7 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
       this.usuarioService.guardar(this.usuario).subscribe(result => {
         if (!result.error) {
           this.loading = false;
-          this.successSwal(result.mensaje);
+          this.alert.successSwal(result.mensaje);
           if (esUsuarioNuevo) {
             const mensaje = 'Ya cuenta con acceso al sistema https://admin-arritem.atton-it.cl';
             this.usuario.email = 'admin-arritem@atton-it.cl';
@@ -158,7 +183,7 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
           }
         } else {
           this.loading = false;
-          this.errorSwal(result.mensaje);
+          this.alert.errorSwal(result.mensaje);
         }
       });
     }
@@ -170,29 +195,6 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
 
   limpiarFormulario() {
     this.formulario.reset();
-  }
-
-  errorSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Error',
-      type: 'error',
-      text: mensaje
-    });
-  }
-
-  warningSwal(mensaje: string) {
-    Swal.fire({
-      type: 'warning',
-      text: mensaje
-    });
-  }
-
-  successSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Hecho!',
-      type: 'success',
-      text: mensaje
-    });
   }
 
   ngOnChanges(changes: SimpleChanges) {

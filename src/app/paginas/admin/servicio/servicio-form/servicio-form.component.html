@@ -23,6 +23,14 @@
                           </div>
                           <mat-form-field class="example-full-width has-label">
                             <input type="text" name="nombre" matInput placeholder="Nombre del servicio" formControlName="nombre" autocomplete="off" />
+                            <mat-error *ngIf="formulario.controls['nombre'].invalid">
+                              <ng-container *ngIf="formulario.controls['nombre'].errors?.required">
+                                El nombre del servicio es obligatorio
+                              </ng-container>
+                              <ng-container *ngIf="formulario.controls['nombre'].errors?.maxLength">
+                                El nombre del servicio no debe contener más de 50 caracteres
+                              </ng-container>
+                            </mat-error>
                           </mat-form-field>
                         </div>
 

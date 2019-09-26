@@ -18,12 +18,7 @@
                         <ngb-carousel *ngIf="images" class="mb-3 w-400 mx-auto">
                           <ng-template ngbSlide>
                             <div class="picsum-img-wrapper">
-                              <img
-                                [src]="images[0]"
-                                class="img-carousel"
-                                alt="Random first slide"
-                                src-fallback="./assets/img/default-img.png"
-                              />
+                              <img [src]="images[0]" class="img-carousel" alt="Random first slide" src-fallback="./assets/img/default-img.png" />
                             </div>
                             <div class="carousel-caption">
                               <p>This carousel uses customized default values.</p>
@@ -31,12 +26,7 @@
                           </ng-template>
                           <ng-template ngbSlide>
                             <div class="picsum-img-wrapper">
-                              <img
-                                [src]="images[1]"
-                                class="img-carousel"
-                                alt="Random second slide"
-                                src-fallback="./assets/img/default-img.png"
-                              />
+                              <img [src]="images[1]" class="img-carousel" alt="Random second slide" src-fallback="./assets/img/default-img.png" />
                             </div>
                             <div class="carousel-caption">
                               <p>This carousel doesn't pause or resume on mouse events</p>
@@ -44,12 +34,7 @@
                           </ng-template>
                           <ng-template ngbSlide>
                             <div class="picsum-img-wrapper">
-                              <img
-                                [src]="images[2]"
-                                class="img-carousel"
-                                alt="Random third slide"
-                                src-fallback="./assets/img/default-img.png"
-                              />
+                              <img [src]="images[2]" class="img-carousel" alt="Random third slide" src-fallback="./assets/img/default-img.png" />
                             </div>
                             <div class="carousel-caption">
                               <p>This carousel uses customized default values.</p>
@@ -57,12 +42,7 @@
                           </ng-template>
                           <ng-template ngbSlide>
                             <div class="picsum-img-wrapper">
-                              <img
-                                [src]="images[3]"
-                                class="img-carousel"
-                                alt="Random fourth slide"
-                                src-fallback="./assets/img/default-img.png"
-                              />
+                              <img [src]="images[3]" class="img-carousel" alt="Random fourth slide" src-fallback="./assets/img/default-img.png" />
                             </div>
                             <div class="carousel-caption">
                               <p>This carousel uses customized default values.</p>
@@ -78,14 +58,7 @@
                             </span>
                           </div>
                           <mat-form-field class="example-full-width has-label ">
-                            <input
-                              type="text"
-                              name="nombre"
-                              matInput
-                              placeholder="Nombre Depto"
-                              formControlName="nombre"
-                              autocomplete="off"
-                            />
+                            <input type="text" name="nombre" matInput placeholder="Nombre Depto" formControlName="nombre" autocomplete="off" />
                           </mat-form-field>
                         </div>
 
@@ -96,14 +69,15 @@
                             </span>
                           </div>
                           <mat-form-field class="example-full-width has-label ">
-                            <input
-                              type="text"
-                              name="direccion"
-                              matInput
-                              placeholder="Dirección"
-                              formControlName="direccion"
-                              autocomplete="off"
-                            />
+                            <input type="text" name="direccion" matInput placeholder="Dirección" formControlName="direccion" autocomplete="off" />
+                            <mat-error *ngIf="formulario.controls['direccion'].invalid">
+                              <ng-container *ngIf="formulario.controls['direccion'].errors?.required">
+                                La dirección es obligatoria
+                              </ng-container>
+                              <ng-container *ngIf="formulario.controls['direccion'].errors?.maxLength">
+                                La dirección no debe contener más de 200 caracteres
+                              </ng-container>
+                            </mat-error>
                           </mat-form-field>
                         </div>
                         <div class="input-group flex-nowrap">
@@ -118,6 +92,11 @@
                               <mat-option value="D"> Disponible </mat-option>
                               <mat-option value="M"> En mantención </mat-option>
                             </mat-select>
+                            <mat-error *ngIf="formulario.controls['estado'].invalid">
+                              <ng-container *ngIf="formulario.controls['estado'].errors?.required">
+                                El estado es obligatorio
+                              </ng-container>
+                            </mat-error>
                           </mat-form-field>
                         </div>
                         <div class="input-group flex-nowrap">
@@ -127,14 +106,15 @@
                             </span>
                           </div>
                           <mat-form-field class="example-full-width has-label ">
-                            <input
-                              type="number"
-                              name="tarifa"
-                              matInput
-                              placeholder="Tarifa"
-                              formControlName="tarifa"
-                              autocomplete="off"
-                            />
+                            <input type="number" name="tarifa" matInput placeholder="Tarifa" formControlName="tarifa" autocomplete="off" />
+                            <mat-error *ngIf="formulario.controls['tarifa'].invalid">
+                              <ng-container *ngIf="formulario.controls['tarifa'].errors?.required">
+                                La tarifa es obligatoria
+                              </ng-container>
+                              <ng-container *ngIf="formulario.controls['tarifa'].errors?.min">
+                                La tarifa debe ser mayor a 0
+                              </ng-container>
+                            </mat-error>
                           </mat-form-field>
                         </div>
                       </div>
@@ -147,12 +127,7 @@
               <div class="card-footer">
                 <div class="mr-auto"></div>
                 <div class="ml-auto">
-                  <button
-                    [ngClass]="{ 'px-3': loading }"
-                    type="button"
-                    class="btn btn-next btn-fill btn-primary btn-wd"
-                    (click)="guardar()"
-                  >
+                  <button [ngClass]="{ 'px-3': loading }" type="button" class="btn btn-next btn-fill btn-primary btn-wd" (click)="guardar()">
                     <span *ngIf="loading" class="mr-2 spinner-border spinner-border-sm"></span>
                     <span *ngIf="loading">Guardando</span>
                     <span *ngIf="!loading">Guardar</span>

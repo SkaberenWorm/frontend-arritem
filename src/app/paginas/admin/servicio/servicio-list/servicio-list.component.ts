@@ -3,6 +3,7 @@ import { Servicio } from 'src/app/commons/models/servicio.model';
 import { ServicioService } from '../servicio.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { UtilAlertService } from 'src/app/commons/util/util-alert.service';
 
 @Component({
   selector: 'app-servicio-list',
@@ -14,7 +15,7 @@ export class ServicioListComponent implements OnInit {
   public loading = true;
   public servicioFilter = '';
 
-  constructor(private servicioService: ServicioService, private router: Router) {}
+  constructor(private servicioService: ServicioService, private router: Router, private alert: UtilAlertService) {}
 
   ngOnInit() {
     this.cargarData();
@@ -27,7 +28,7 @@ export class ServicioListComponent implements OnInit {
         console.log(result.resultado);
         this.listaServicios = result.resultado;
       } else {
-        this.warningSwal(result.mensaje);
+        this.alert.warningSwal(result.mensaje);
       }
     });
   }
@@ -63,19 +64,11 @@ export class ServicioListComponent implements OnInit {
     this.servicioService.guardar(servicio).subscribe(result => {
       if (result.error) {
         if (!servicio.activo) {
-          this.errorSwal('Error al habilitar al servicio');
+          this.alert.errorSwal('Error al habilitar al servicio');
         } else {
-          this.errorSwal(result.mensaje);
+          this.alert.errorSwal(result.mensaje);
         }
       }
-    });
-  }
-
-  errorSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Error',
-      type: 'error',
-      text: mensaje
     });
   }
 
@@ -85,19 +78,5 @@ export class ServicioListComponent implements OnInit {
 
   openModal(servicio: Servicio) {
     console.log(servicio);
-  }
-  warningSwal(mensaje: string) {
-    Swal.fire({
-      type: 'warning',
-      text: mensaje
-    });
-  }
-
-  successSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Hecho!',
-      type: 'success',
-      text: mensaje
-    });
   }
 }

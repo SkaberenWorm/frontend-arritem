@@ -23,13 +23,9 @@ import { RolAdminAndFuncionarioGuard } from './guards/rol-admin-and-funcionario.
 import { LoadingCardComponent } from './components/loading/loading-card/loading-card.component';
 import { LoadingTableComponent } from './components/loading/loading-table/loading-table.component';
 import { VerUsuarioModalComponent } from './components/ver-usuario-modal/ver-usuario-modal.component';
+import { UtilAlertService } from './util/util-alert.service';
 @NgModule({
-  declarations: [
-    FieldErrorDisplayComponent,
-    LoadingCardComponent,
-    LoadingTableComponent,
-    VerUsuarioModalComponent
-  ],
+  declarations: [FieldErrorDisplayComponent, LoadingCardComponent, LoadingTableComponent, VerUsuarioModalComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -61,13 +57,9 @@ import { VerUsuarioModalComponent } from './components/ver-usuario-modal/ver-usu
     AuthGuard,
     Util,
     UtilFormating,
-    UtilValidation
+    UtilValidation,
+    UtilAlertService
   ],
-  exports: [
-    FieldErrorDisplayComponent,
-    LoadingCardComponent,
-    LoadingTableComponent,
-    VerUsuarioModalComponent
-  ]
+  exports: [FieldErrorDisplayComponent, LoadingCardComponent, LoadingTableComponent, VerUsuarioModalComponent]
 })
 export class CommonsServiceModule {}

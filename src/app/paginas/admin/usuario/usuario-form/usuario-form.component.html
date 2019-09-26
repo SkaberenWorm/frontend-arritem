@@ -79,6 +79,22 @@
                         <div class="input-group flex-nowrap">
                           <div class="input-group-prepend">
                             <span class="input-group-text">
+                              <i class="material-icons">verified_user</i>
+                            </span>
+                          </div>
+                          <mat-form-field>
+                            <mat-label>Rol</mat-label>
+                            <mat-select formControlName="rol" name="rol">
+                              <mat-option *ngFor="let rol of listadoRoles" [value]="rol.id">
+                                {{ rol.nombre }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+
+                        <div class="input-group flex-nowrap">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">
                               <i class="material-icons">email</i>
                             </span>
                           </div>
@@ -94,9 +110,7 @@
                             </mat-error>
                           </mat-form-field>
                         </div>
-                      </div>
 
-                      <div class="col-md-10 mt-md-3">
                         <div class="input-group flex-nowrap">
                           <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -112,49 +126,46 @@
                             </mat-error>
                           </mat-form-field>
                         </div>
-                      </div>
 
-                      <div class="col-md-10 mt-md-3" *ngIf="!seEstaEditando()">
-                        <div class="input-group flex-nowrap">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text">
-                              <i class="material-icons">vpn_key</i>
-                            </span>
+                        <ng-container *ngIf="!seEstaEditando()">
+                          <div class="input-group flex-nowrap">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">vpn_key</i>
+                              </span>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Password" type="password" name="password" formControlName="password" autocomplete="off" />
+                              <mat-error *ngIf="formulario.controls['password'].invalid">
+                                <ng-container *ngIf="formulario.controls['password'].errors?.required">
+                                  La password es obligatoria
+                                </ng-container>
+                              </mat-error>
+                            </mat-form-field>
                           </div>
-                          <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Password" type="password" name="password" formControlName="password" autocomplete="off" />
-                            <mat-error *ngIf="formulario.controls['password'].invalid">
-                              <ng-container *ngIf="formulario.controls['password'].errors?.required">
-                                La password es obligatoria
-                              </ng-container>
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
-                      </div>
-
-                      <div class="col-md-10 mt-md-3" *ngIf="!seEstaEditando()">
-                        <div class="input-group flex-nowrap">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text">
-                              <i class="material-icons">vpn_key</i>
-                            </span>
+                          <div class="input-group flex-nowrap">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="material-icons">vpn_key</i>
+                              </span>
+                            </div>
+                            <mat-form-field class="example-full-width">
+                              <input
+                                matInput
+                                placeholder="Confirme password"
+                                type="password"
+                                name="repassword"
+                                formControlName="repassword"
+                                autocomplete="off"
+                              />
+                              <mat-error *ngIf="formulario.controls['repassword'].invalid">
+                                <ng-container *ngIf="formulario.controls['repassword'].errors?.matchPassword">
+                                  La password debe coincidir
+                                </ng-container>
+                              </mat-error>
+                            </mat-form-field>
                           </div>
-                          <mat-form-field class="example-full-width">
-                            <input
-                              matInput
-                              placeholder="Confirme password"
-                              type="password"
-                              name="repassword"
-                              formControlName="repassword"
-                              autocomplete="off"
-                            />
-                            <mat-error *ngIf="formulario.controls['repassword'].invalid">
-                              <ng-container *ngIf="formulario.controls['repassword'].errors?.matchPassword">
-                                La password debe coincidir
-                              </ng-container>
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
+                        </ng-container>
                       </div>
                     </div>
                   </div>

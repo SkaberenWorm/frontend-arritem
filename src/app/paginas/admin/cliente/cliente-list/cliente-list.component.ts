@@ -4,6 +4,7 @@ import { ClienteService } from '../cliente.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { VerUsuarioModalComponent } from 'src/app/commons/components/ver-usuario-modal/ver-usuario-modal.component';
+import { UtilAlertService } from 'src/app/commons/util/util-alert.service';
 @Component({
   selector: 'app-cliente-list',
   templateUrl: './cliente-list.component.html',
@@ -16,7 +17,7 @@ export class ClienteListComponent implements OnInit {
 
   @ViewChild(VerUsuarioModalComponent, { static: false })
   verDetalleClienteModal: VerUsuarioModalComponent;
-  constructor(private clienteService: ClienteService, private router: Router) {}
+  constructor(private clienteService: ClienteService, private router: Router, private alert: UtilAlertService) {}
 
   ngOnInit() {
     this.cargarData();
@@ -36,7 +37,7 @@ export class ClienteListComponent implements OnInit {
       if (!result.error) {
         this.listaClientes = result.resultado;
       } else {
-        this.warningSwal(result.mensaje);
+        this.alert.warningSwal(result.mensaje);
       }
     });
   }
@@ -72,38 +73,15 @@ export class ClienteListComponent implements OnInit {
     this.clienteService.guardar(cliente).subscribe(result => {
       if (result.error) {
         if (!cliente.activo) {
-          this.errorSwal('Error al habilitar al cliente');
+          this.alert.errorSwal('Error al habilitar al cliente');
         } else {
-          this.errorSwal(result.mensaje);
+          this.alert.errorSwal(result.mensaje);
         }
       }
     });
   }
 
-  errorSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Error',
-      type: 'error',
-      text: mensaje
-    });
-  }
-
   newClient() {
     this.router.navigate(['/admin/cliente/new']);
-  }
-
-  warningSwal(mensaje: string) {
-    Swal.fire({
-      type: 'warning',
-      text: mensaje
-    });
-  }
-
-  successSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Hecho!',
-      type: 'success',
-      text: mensaje
-    });
   }
 }

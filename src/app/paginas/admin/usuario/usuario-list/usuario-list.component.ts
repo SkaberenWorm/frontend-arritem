@@ -4,6 +4,7 @@ import { VerUsuarioModalComponent } from 'src/app/commons/components/ver-usuario
 import { UsuarioService } from '../../usuario/usuario.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { UtilAlertService } from 'src/app/commons/util/util-alert.service';
 
 @Component({
   selector: 'app-usuario-list',
@@ -17,7 +18,7 @@ export class UsuarioListComponent implements OnInit {
 
   @ViewChild(VerUsuarioModalComponent, { static: false })
   verDetalleUsuarioModal: VerUsuarioModalComponent;
-  constructor(private usuarioService: UsuarioService, private router: Router) {}
+  constructor(private usuarioService: UsuarioService, private router: Router, private alert: UtilAlertService) {}
 
   ngOnInit() {
     this.cargarData();
@@ -37,7 +38,7 @@ export class UsuarioListComponent implements OnInit {
       if (!result.error) {
         this.listaUsuarios = result.resultado;
       } else {
-        this.warningSwal(result.mensaje);
+        this.alert.warningSwal(result.mensaje);
       }
     });
   }
@@ -73,37 +74,14 @@ export class UsuarioListComponent implements OnInit {
     this.usuarioService.guardar(usuario).subscribe(result => {
       if (result.error) {
         if (!usuario.activo) {
-          this.errorSwal('Error al habilitar al usuario');
+          this.alert.errorSwal('Error al habilitar al usuario');
         } else {
-          this.errorSwal(result.mensaje);
+          this.alert.errorSwal(result.mensaje);
         }
       }
     });
   }
   newUser() {
     this.router.navigate(['/admin/usuario/new']);
-  }
-
-  errorSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Error',
-      type: 'error',
-      text: mensaje
-    });
-  }
-
-  warningSwal(mensaje: string) {
-    Swal.fire({
-      type: 'warning',
-      text: mensaje
-    });
-  }
-
-  successSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Hecho!',
-      type: 'success',
-      text: mensaje
-    });
   }
 }

@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { Util } from 'src/app/commons/util/util';
 import { ClienteService } from '../cliente.service';
 import { UtilValidation } from 'src/app/commons/util/util.validation';
+import { UtilAlertService } from 'src/app/commons/util/util-alert.service';
 
 declare const $: any;
 interface FileReaderEventTarget extends EventTarget {
@@ -35,7 +36,8 @@ export class ClienteFormComponent implements OnInit, OnChanges {
     private activadedRouter: ActivatedRoute,
     private clienteService: ClienteService,
     private router: Router,
-    private utilValidation: UtilValidation
+    private utilValidation: UtilValidation,
+    private alert: UtilAlertService
   ) {
     /**
      * Escuchamos si viene por URL el parametro ID para la saber si es un nuevo cliente o una edición de este
@@ -45,6 +47,10 @@ export class ClienteFormComponent implements OnInit, OnChanges {
         this.cliente.id = params['id'];
       }
     });
+
+    if (this.cliente.id === undefined) {
+      this.cliente.id = 0;
+    }
   }
 
   ngOnInit() {
@@ -118,11 +124,12 @@ export class ClienteFormComponent implements OnInit, OnChanges {
           .toString(36)
           .slice(2);
         esUsuarioNuevo = true;
+        console.log('Su password es: ' + this.cliente.password);
       }
       this.clienteService.guardar(this.cliente).subscribe(result => {
         if (!result.error) {
           this.loading = false;
-          this.successSwal(result.mensaje);
+          this.alert.successSwal(result.mensaje);
           if (esUsuarioNuevo) {
             const mensaje = 'Su password es: ' + this.cliente.password;
             this.cliente.email = 'client-arritem@atton-it.cl';
@@ -131,7 +138,7 @@ export class ClienteFormComponent implements OnInit, OnChanges {
           }
         } else {
           this.loading = false;
-          this.errorSwal(result.mensaje);
+          this.alert.errorSwal(result.mensaje);
         }
       });
     }
@@ -143,29 +150,6 @@ export class ClienteFormComponent implements OnInit, OnChanges {
 
   limpiarFormulario() {
     this.formulario.reset();
-  }
-
-  errorSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Error',
-      type: 'error',
-      text: mensaje
-    });
-  }
-
-  warningSwal(mensaje: string) {
-    Swal.fire({
-      type: 'warning',
-      text: mensaje
-    });
-  }
-
-  successSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Hecho!',
-      type: 'success',
-      text: mensaje
-    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
