@@ -8,6 +8,9 @@ import Swal from 'sweetalert2';
 import { NgbDate, NgbCalendar, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { TipoMantencion } from 'src/app/commons/models/tipo-mantencion.model';
+import { Departamento } from 'src/app/commons/models/departamento.model';
+import { DepartamentoService } from 'src/app/paginas/departamento/departamento.service';
+import { UtilAlertService } from 'src/app/commons/util/util-alert.service';
 
 @Component({
   selector: 'app-mantencion-form',
@@ -22,14 +25,17 @@ export class MantencionFormComponent implements OnInit {
   fromDate: NgbDate;
   toDate: NgbDate;
   listaTipoMantenciones: Array<TipoMantencion> = [];
+  listaDepartamento: Array<Departamento> = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private activadedRouter: ActivatedRoute,
     private mantencionService: MantencionService,
+    private departamentoService: DepartamentoService,
     private router: Router,
     calendar: NgbCalendar,
-    config: NgbDatepickerConfig
+    config: NgbDatepickerConfig,
+    private alert: UtilAlertService
   ) {
     /**
      * Escuchamos si viene por URL el parametro ID para la saber si es un nuevo mantencion o una edición de este
@@ -55,7 +61,8 @@ export class MantencionFormComponent implements OnInit {
       fechaInicio: new FormControl('', [Validators.required]),
       fechaTermino: new FormControl('', [Validators.required]),
       costo: new FormControl('', [Validators.required]),
-      tipo: new FormControl('', [Validators.required])
+      tipo: new FormControl('', [Validators.required]),
+      departamento: new FormControl('', [Validators.required])
     });
 
     if (this.mantencion.id > 0) {
@@ -72,6 +79,17 @@ export class MantencionFormComponent implements OnInit {
 
     this.cargarRangoFechaEnFormulario();
     this.cargarListadoTipoDeMantenciones();
+    this.cargarDepartamentos();
+  }
+
+  cargarDepartamentos() {
+    this.departamentoService.listado().subscribe(result => {
+      if (!result.error) {
+        this.listaDepartamento = result.resultado;
+      } else {
+        this.alert.errorSwal(result.mensaje);
+      }
+    });
   }
 
   cargarListadoTipoDeMantenciones() {
@@ -126,7 +144,13 @@ export class MantencionFormComponent implements OnInit {
   }
 
   isHovered(date: NgbDate) {
-    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+    return (
+      this.fromDate &&
+      !this.toDate &&
+      this.hoveredDate &&
+      date.after(this.fromDate) &&
+      date.before(this.hoveredDate)
+    );
   }
 
   isInside(date: NgbDate) {
@@ -134,7 +158,12 @@ export class MantencionFormComponent implements OnInit {
   }
 
   isRange(date: NgbDate) {
-    return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
+    return (
+      date.equals(this.fromDate) ||
+      date.equals(this.toDate) ||
+      this.isInside(date) ||
+      this.isHovered(date)
+    );
   }
 
   /**
@@ -142,10 +171,15 @@ export class MantencionFormComponent implements OnInit {
    */
   cargarFormulario() {
     this.formulario.controls.descripcion.setValue(this.mantencion.descripcion);
-    this.formulario.controls.fechaInicio.setValue(moment(this.mantencion.fechaInicio).format('DD-MM-YYYY'));
-    this.formulario.controls.fechaTermino.setValue(moment(this.mantencion.fechaTermino).format('DD-MM-YYYY'));
+    this.formulario.controls.fechaInicio.setValue(
+      moment(this.mantencion.fechaInicio).format('DD-MM-YYYY')
+    );
+    this.formulario.controls.fechaTermino.setValue(
+      moment(this.mantencion.fechaTermino).format('DD-MM-YYYY')
+    );
     this.formulario.controls.costo.setValue(this.mantencion.costo);
     this.formulario.controls.tipo.setValue(this.mantencion.tipo.id);
+    this.formulario.controls.departamento.setValue(this.mantencion.departamento.id);
   }
 
   /**
@@ -157,6 +191,7 @@ export class MantencionFormComponent implements OnInit {
     this.mantencion.fechaTermino = this.formulario.controls.fechaTermino.value;
     this.mantencion.costo = this.formulario.controls.costo.value;
     this.mantencion.tipo.id = this.formulario.controls.tipo.value;
+    this.mantencion.departamento.id = this.formulario.controls.departamento.value;
   }
 
   guardar() {

@@ -29,11 +29,13 @@ export class MantencionService {
    * Trae los tipos de mantenciones
    */
   public listadoTiposDeMantenciones(): Observable<ResultadoProc<Array<TipoMantencion>>> {
-    return this.http.get<ResultadoProc<Array<TipoMantencion>>>(`${this.urlBase}/tipo/all/active`).pipe(
-      map(result => {
-        return result;
-      })
-    );
+    return this.http
+      .get<ResultadoProc<Array<TipoMantencion>>>(`${this.urlBase}/tipo/all/active`)
+      .pipe(
+        map(result => {
+          return result;
+        })
+      );
   }
 
   public getById(id: number): Observable<ResultadoProc<Mantencion>> {
