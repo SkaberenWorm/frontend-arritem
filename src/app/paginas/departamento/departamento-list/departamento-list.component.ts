@@ -4,6 +4,7 @@ import { Departamento } from 'src/app/commons/models/departamento.model';
 import { DepartamentoService } from '../departamento.service';
 import { Router } from '@angular/router';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { UtilAlertService } from 'src/app/commons/util/util-alert.service';
 
 @Component({
   selector: 'app-departamento-list',
@@ -15,7 +16,11 @@ export class DepartamentoListComponent implements OnInit {
   public loading = true;
   public departamentoFilter = '';
 
-  constructor(private departamentoService: DepartamentoService, private router: Router) {}
+  constructor(
+    private departamentoService: DepartamentoService,
+    private router: Router,
+    private alert: UtilAlertService
+  ) {}
 
   ngOnInit() {
     this.cargarData();
@@ -28,7 +33,7 @@ export class DepartamentoListComponent implements OnInit {
         console.log(result.resultado);
         this.listaDepartamentos = result.resultado;
       } else {
-        this.warningSwal(result.mensaje);
+        this.alert.warningSwal(result.mensaje);
       }
     });
   }
@@ -64,38 +69,15 @@ export class DepartamentoListComponent implements OnInit {
     this.departamentoService.guardar(departamento).subscribe(result => {
       if (result.error) {
         if (!departamento.activo) {
-          this.errorSwal('Error al habilitar al departamento');
+          this.alert.errorSwal('Error al habilitar al departamento');
         } else {
-          this.errorSwal(result.mensaje);
+          this.alert.errorSwal(result.mensaje);
         }
       }
     });
   }
 
-  errorSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Error',
-      type: 'error',
-      text: mensaje
-    });
-  }
-
-  warningSwal(mensaje: string) {
-    Swal.fire({
-      type: 'warning',
-      text: mensaje
-    });
-  }
-
   newDepartamento() {
     this.router.navigate(['/departamento/new']);
-  }
-
-  successSwal(mensaje: string) {
-    Swal.fire({
-      title: 'Hecho!',
-      type: 'success',
-      text: mensaje
-    });
   }
 }

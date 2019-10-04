@@ -6,6 +6,7 @@ export class Usuario {
   public nombre = '';
   public apellidos = '';
   public email = '';
+  public user = '';
   public activo = true;
   public rol = new Rol();
   public password = '';
@@ -15,6 +16,7 @@ export class Usuario {
     run?: String;
     nombre?: String;
     apellidos?: string;
+    user?: String;
     email?: String;
     activo?: boolean;
     rol?: Rol;

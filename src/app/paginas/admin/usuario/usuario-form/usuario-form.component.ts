@@ -70,6 +70,7 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
       this.formulario = new FormGroup({
         firstName: new FormControl('', [Validators.required]),
         lastName: new FormControl('', [Validators.required]),
+        user: new FormControl(),
         email: new FormControl('', [Validators.required, Validators.email]),
         celular: new FormControl('', this.utilValidation.celularValido),
         rol: new FormControl('', [Validators.required]),
@@ -80,6 +81,7 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
         {
           firstName: new FormControl('', [Validators.required]),
           lastName: new FormControl('', [Validators.required]),
+          user: new FormControl(),
           email: new FormControl('', [Validators.required, Validators.email]),
           celular: new FormControl('', this.utilValidation.celularValido),
           rol: new FormControl('', [Validators.required]),
@@ -122,6 +124,7 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
     this.formulario.controls.email.setValue(this.usuario.email);
     this.formulario.controls.celular.setValue(this.usuario.celular);
     this.formulario.controls.run.setValue(this.usuario.run);
+    this.formulario.controls.user.setValue(this.usuario.user);
     this.formulario.controls.rol.setValue(this.usuario.rol.id);
   }
 
@@ -142,6 +145,7 @@ export class UsuarioFormComponent implements OnInit, OnChanges {
     this.usuario.nombre = this.formulario.controls.firstName.value;
     this.usuario.apellidos = this.formulario.controls.lastName.value;
     this.usuario.email = this.formulario.controls.email.value;
+    this.usuario.user = this.formulario.controls.user.value;
     this.usuario.celular = this.formulario.controls.celular.value;
     this.usuario.run = this.formulario.controls.run.value;
     this.usuario.rol.id = this.formulario.controls.rol.value;

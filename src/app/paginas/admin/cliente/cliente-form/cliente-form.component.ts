@@ -57,6 +57,7 @@ export class ClienteFormComponent implements OnInit, OnChanges {
     this.formulario = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
+      user: new FormControl(),
       email: new FormControl('', [Validators.required, Validators.email]),
       celular: new FormControl('', this.utilValidation.celularValido),
       run: new FormControl('', [Validators.required, this.utilValidation.rutValido])
@@ -100,6 +101,7 @@ export class ClienteFormComponent implements OnInit, OnChanges {
     this.formulario.controls.email.setValue(this.cliente.email);
     this.formulario.controls.celular.setValue(this.cliente.celular);
     this.formulario.controls.run.setValue(this.cliente.run);
+    this.formulario.controls.user.setValue(this.cliente.user);
   }
 
   /**
@@ -111,6 +113,7 @@ export class ClienteFormComponent implements OnInit, OnChanges {
     this.cliente.email = this.formulario.controls.email.value;
     this.cliente.celular = this.formulario.controls.celular.value;
     this.cliente.run = this.formulario.controls.run.value;
+    this.cliente.user = this.formulario.controls.user.value;
   }
 
   guardar() {

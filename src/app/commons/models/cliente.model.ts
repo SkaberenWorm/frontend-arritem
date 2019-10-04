@@ -10,6 +10,7 @@ export class Cliente {
   public celular = '';
   public rol = new Rol();
   public password = '';
+  public user = '';
 
   constructor(fields?: {
     id?: number;
@@ -17,6 +18,7 @@ export class Cliente {
     nombre?: String;
     apellidos?: string;
     email?: String;
+    user?: String;
     activo?: boolean;
     rol?: Rol;
     celular?: string;
