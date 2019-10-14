@@ -71,10 +71,7 @@ export class SidebarComponent implements OnInit {
       type: 'sub',
       icontype: 'content_paste',
       collapse: 'reservas',
-      children: [
-        { path: 'new', title: 'Nuevo Reserva', ab: '-' },
-        { path: 'listado', title: 'Listado de reservas', ab: '-' }
-      ]
+      children: [{ path: 'listado', title: 'Listado de reservas', ab: '-' }]
     },
     {
       path: '/admin/cliente',

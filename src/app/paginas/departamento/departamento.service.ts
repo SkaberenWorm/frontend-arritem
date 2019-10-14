@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResultadoProc } from 'src/app/commons/interfaces/resultado-proc.interface';
 import { Departamento } from 'src/app/commons/models/departamento.model';
@@ -19,6 +19,26 @@ export class DepartamentoService {
         return result;
       })
     );
+  }
+
+  public listWithSearchAndPagination(
+    departamento: Departamento,
+    page: number,
+    pageSize: number
+  ): Observable<ResultadoProc<IPaginacion<Departamento>>> {
+    const params: HttpParams = new HttpParams().set('direccion', departamento.direccion);
+    return this.http
+      .get<ResultadoProc<IPaginacion<Departamento>>>(
+        `${this.urlBase}/list/page/${page}/${pageSize}`,
+        { params }
+      )
+      .pipe(
+        map(result => {
+          console.clear();
+          console.table(result.resultado.content);
+          return result;
+        })
+      );
   }
 
   public getById(id: number): Observable<ResultadoProc<Departamento>> {

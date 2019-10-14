@@ -1,4 +1,4 @@
-import { FormGroup } from "@angular/forms";
+import { FormGroup } from '@angular/forms';
 
 export class Util {
   public static obtenerMensajes(mensajes: String[]) {
@@ -42,6 +42,8 @@ export class Util {
 
   public static setFormForValidate(form: FormGroup) {
     Object.keys(form.controls).forEach(field => {
+      console.log(field);
+
       const control = form.get(field);
       control.markAsTouched({ onlySelf: true });
     });

@@ -47,14 +47,29 @@
                     </td>
                   </tr>
 
-                  <tr class="text-left" *ngFor="let reserva of listaReservas">
+                  <tr
+                    class="text-left"
+                    *ngFor="
+                      let reserva of listaReservas
+                        | paginate: { itemsPerPage: 10, currentPage: page }
+                    "
+                  >
                     <td>{{ reserva.id }}</td>
                     <td>{{ reserva.usuarioId }}</td>
-                    <td>{{ reserva.fechaHoraInicio }}</td>
-                    <td>{{ reserva.fechaHoraTermino }}</td>
+                    <td>
+                      {{ reserva.fechaHoraInicio | date: 'dd/MM/yyyy' }}<br />
+                      {{ reserva.fechaHoraInicio | date: 'HH:mm:ss' }}
+                    </td>
+                    <td>
+                      {{ reserva.fechaHoraTermino | date: 'dd/MM/yyyy' }}<br />
+                      {{ reserva.fechaHoraTermino | date: 'HH:mm:ss' }}
+                    </td>
                     <td>{{ reserva.total }}</td>
                     <td>{{ reserva.observacion }}</td>
-                    <td>{{ reserva.createdAt }}</td>
+                    <td>
+                      {{ reserva.createdAt | date: 'dd/MM/yyyy' }}<br />
+                      {{ reserva.createdAt | date: 'HH:mm:ss' }}
+                    </td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
                         <a
@@ -88,6 +103,15 @@
                   </tr>
                 </tbody>
               </table>
+              <pagination-controls
+                directionLinks="true"
+                autoHide="true"
+                responsive="true"
+                previousLabel="Anterior"
+                nextLabel="Siguiente"
+                (pageChange)="page = $event"
+              >
+              </pagination-controls>
             </div>
           </div>
         </div>

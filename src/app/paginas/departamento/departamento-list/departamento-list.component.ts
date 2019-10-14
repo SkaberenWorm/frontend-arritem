@@ -12,9 +12,14 @@ import { UtilAlertService } from 'src/app/commons/util/util-alert.service';
   styleUrls: []
 })
 export class DepartamentoListComponent implements OnInit {
-  public listaDepartamentos: Array<Departamento>;
+  public listaDepartamentos: Array<Departamento> = [];
+  private listaTemporal: Array<Departamento> = [];
+  public departamentoFilter: Departamento = new Departamento();
   public loading = true;
-  public departamentoFilter = '';
+
+  public page = 1;
+  public pageSize = 10;
+  public totalElements = 0;
 
   constructor(
     private departamentoService: DepartamentoService,
@@ -23,10 +28,48 @@ export class DepartamentoListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.cargarData();
+    //this.cargarData();
+    this.listarDepartamentos();
   }
 
-  cargarData() {
+  /**
+   * Listamos la primera página de departamentos
+   */
+  listarDepartamentos(event?) {
+    this.loading = true;
+    this.departamentoService
+      .listWithSearchAndPagination(this.departamentoFilter, this.page, this.pageSize)
+      .subscribe(result => {
+        if (!result.error) {
+          let listaDepartamentosTmp: Array<Departamento> = [];
+          listaDepartamentosTmp = result.resultado.content;
+          this.totalElements = result.resultado.totalElements;
+          if (this.departamentoFilter.direccion.length > 0) {
+            this.listaDepartamentos = [];
+          }
+          this.agregarDepartamentos(listaDepartamentosTmp);
+        } else {
+          this.alert.warningSwal(result.mensaje);
+        }
+        this.loading = false;
+        if (event != null) {
+          event.target.complete();
+        }
+      });
+  }
+
+  /**
+   * Agregamos los departamentos a la lista
+   * @param departamentos
+   */
+  agregarDepartamentos(departamentos: Array<Departamento>) {
+    departamentos.forEach(depto => {
+      this.listaDepartamentos.push(depto);
+      this.listaTemporal.push(depto);
+    });
+  }
+
+  /* cargarData() {
     this.departamentoService.listado().subscribe(result => {
       this.loading = false;
       if (!result.error) {
@@ -36,10 +79,18 @@ export class DepartamentoListComponent implements OnInit {
         this.alert.warningSwal(result.mensaje);
       }
     });
-  }
+  } */
 
-  filtrarDepartamento(input: string) {
-    console.log(input);
+  filtrarDepartamento(depto: string) {
+    this.page = 1;
+
+    if (depto.length > 0) {
+      this.departamentoFilter = new Departamento({ direccion: depto });
+    } else {
+      this.departamentoFilter = new Departamento({ direccion: '' });
+    }
+    this.listaDepartamentos = [];
+    this.listarDepartamentos();
   }
 
   cambiarEstadoDepartamento(departamento: Departamento) {

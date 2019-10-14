@@ -15,16 +15,6 @@ const routes: Routes = [
     path: 'listado',
     component: ReservaListComponent,
     canActivate: [LoginGuard]
-  },
-  {
-    path: 'new',
-    component: ReservaFormComponent,
-    canActivate: [LoginGuard, RolAdminGuard]
-  },
-  {
-    path: ':id/edit',
-    component: ReservaFormComponent,
-    canActivate: [LoginGuard, RolAdminGuard]
   }
 ];
 

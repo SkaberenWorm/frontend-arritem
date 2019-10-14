@@ -9,7 +9,7 @@ import { DepartamentoService } from './departamento.service';
 import { MatInputModule, MatSelectModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonsServiceModule } from 'src/app/commons/commons-service.module';
-import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule, NgbPagination, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ImgFallbackModule } from 'ngx-img-fallback';
 
 @NgModule({
@@ -23,7 +23,8 @@ import { ImgFallbackModule } from 'ngx-img-fallback';
     CommonsServiceModule,
     NgbCarouselModule,
     MatSelectModule,
-    ImgFallbackModule
+    ImgFallbackModule,
+    NgbPaginationModule
   ],
   providers: [DepartamentoService]
 })

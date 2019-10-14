@@ -15,6 +15,8 @@ export class ReservaListComponent implements OnInit {
   public loading = true;
   public reservaFilter = '';
 
+  public page = 1;
+
   constructor(
     private reservaService: ReservaService,
     private router: Router,
@@ -29,7 +31,7 @@ export class ReservaListComponent implements OnInit {
     this.reservaService.listado().subscribe(result => {
       this.loading = false;
       if (!result.error) {
-        console.log(result.resultado);
+        console.table(result.resultado);
         this.listaReservas = result.resultado;
       } else {
         this.alert.warningSwal(result.mensaje);
@@ -51,5 +53,9 @@ export class ReservaListComponent implements OnInit {
 
   newReserva() {
     this.router.navigate(['/reserva/new']);
+  }
+
+  filtrarreserva(filtro: string) {
+    console.log(filtro);
   }
 }
