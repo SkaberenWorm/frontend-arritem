@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { ResultadoProc } from 'src/app/commons/interfaces/resultado-proc.interface';
 import { Reserva } from 'src/app/commons/models/reserva.model';
 import { map } from 'rxjs/operators';
+import { SearchPagination } from 'src/app/commons/interfaces/search-pagination';
+import { FiltroGeneral } from 'src/app/commons/models/filtro-general.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,18 @@ export class ReservaService {
         return result;
       })
     );
+  }
+
+  public listSearchPagination(
+    searchPagination: SearchPagination<FiltroGeneral>
+  ): Observable<ResultadoProc<IPaginacion<Reserva>>> {
+    return this.http
+      .post<ResultadoProc<IPaginacion<Reserva>>>(`${this.urlBase}/pagitation`, searchPagination)
+      .pipe(
+        map(result => {
+          return result;
+        })
+      );
   }
 
   public getById(id: number): Observable<ResultadoProc<Reserva>> {

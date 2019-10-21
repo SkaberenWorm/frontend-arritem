@@ -8,7 +8,7 @@ import { ReservaFormComponent } from './reserva-form/reserva-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatSelectModule } from '@angular/material';
 import { CommonsServiceModule } from 'src/app/commons/commons-service.module';
-import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
@@ -22,7 +22,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CommonsServiceModule,
     NgbCarouselModule,
     MatSelectModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgbPaginationModule
   ]
 })
 export class ReservaModule {}

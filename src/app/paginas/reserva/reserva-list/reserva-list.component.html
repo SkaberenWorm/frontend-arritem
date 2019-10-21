@@ -47,15 +47,9 @@
                     </td>
                   </tr>
 
-                  <tr
-                    class="text-left"
-                    *ngFor="
-                      let reserva of listaReservas
-                        | paginate: { itemsPerPage: 10, currentPage: page }
-                    "
-                  >
+                  <tr class="text-left" *ngFor="let reserva of listaReservas">
                     <td>{{ reserva.id }}</td>
-                    <td>{{ reserva.usuarioId }}</td>
+                    <td>{{ reserva.cliente.rut }}</td>
                     <td>
                       {{ reserva.fechaHoraInicio | date: 'dd/MM/yyyy' }}<br />
                       {{ reserva.fechaHoraInicio | date: 'HH:mm:ss' }}
@@ -64,7 +58,7 @@
                       {{ reserva.fechaHoraTermino | date: 'dd/MM/yyyy' }}<br />
                       {{ reserva.fechaHoraTermino | date: 'HH:mm:ss' }}
                     </td>
-                    <td>{{ reserva.total }}</td>
+                    <td>{{ reserva.total | currency: 'CLP' }}</td>
                     <td>{{ reserva.observacion }}</td>
                     <td>
                       {{ reserva.createdAt | date: 'dd/MM/yyyy' }}<br />
@@ -72,18 +66,6 @@
                     </td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Basic example">
-                        <a
-                          [routerLink]="['/reserva/', reserva.id, 'view']"
-                          routerLinkActive="router-link-active"
-                        >
-                          <i class="material-icons text-secondary">visibility</i>
-                        </a>
-                        <a
-                          [routerLink]="['/reserva/', reserva.id, 'edit']"
-                          routerLinkActive="router-link-active"
-                        >
-                          <i class="material-icons text-primary px-2">edit</i>
-                        </a>
                         <a
                           (click)="cambiarEstadoreserva(reserva)"
                           *ngIf="reserva.activo"
@@ -103,7 +85,7 @@
                   </tr>
                 </tbody>
               </table>
-              <pagination-controls
+              <!-- <pagination-controls
                 directionLinks="true"
                 autoHide="true"
                 responsive="true"
@@ -111,7 +93,18 @@
                 nextLabel="Siguiente"
                 (pageChange)="page = $event"
               >
-              </pagination-controls>
+              </pagination-controls> -->
+              <ngb-pagination
+                *ngIf="listaReservas.length < totalElements"
+                [(page)]="page"
+                [pageSize]="pageSize"
+                (pageChange)="cargarData()"
+                [collectionSize]="totalElements"
+                [maxSize]="5"
+                [rotate]="true"
+                [boundaryLinks]="true"
+              >
+              </ngb-pagination>
             </div>
           </div>
         </div>
