@@ -69,10 +69,11 @@ export class ClienteFormComponent implements OnInit, OnChanges {
           this.cliente = result.resultado;
           this.cargarFormulario();
         } else {
-          console.log('Error');
+          this.alert.errorSwal(result.mensaje);
         }
       });
     }
+
     $('#wizard-picture').change(function() {
       const input = $(this);
 

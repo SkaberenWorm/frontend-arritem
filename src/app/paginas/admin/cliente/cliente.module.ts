@@ -7,7 +7,7 @@ import { ClienteFormComponent } from './cliente-form/cliente-form.component';
 import { MatProgressSpinnerModule, MatInputModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonsServiceModule } from 'src/app/commons/commons-service.module';
-import { MaterialModule } from 'src/app/app.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -16,7 +16,8 @@ import { MaterialModule } from 'src/app/app.module';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    CommonsServiceModule
+    CommonsServiceModule,
+    NgxPaginationModule
   ],
   declarations: [ClienteListComponent, ClienteFormComponent],
   providers: [ClienteService]

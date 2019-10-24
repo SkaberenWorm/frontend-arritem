@@ -44,7 +44,7 @@
                     </td>
                   </tr>
 
-                  <tr class="text-left" *ngFor="let cliente of listaClientes">
+                  <tr class="text-left" *ngFor="let cliente of listaClientes | paginate: { itemsPerPage: 10, currentPage: page }">
                     <td>{{ cliente.run }}</td>
                     <td>{{ cliente.nombre }} {{ cliente.apellidos }}</td>
                     <td>{{ cliente.email }}</td>
@@ -83,6 +83,15 @@
                   </tr>
                 </tbody>
               </table>
+              <pagination-controls
+                directionLinks="true"
+                autoHide="true"
+                responsive="true"
+                previousLabel="Anterior"
+                nextLabel="Siguiente"
+                (pageChange)="page = $event"
+              >
+              </pagination-controls>
             </div>
           </div>
         </div>

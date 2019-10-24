@@ -15,9 +15,17 @@ export class ClienteListComponent implements OnInit {
   public loading = true;
   public clienteFilter = '';
 
+  public page = 1;
+  public pageSize = 8;
+  public totalElements = 0;
+
   @ViewChild(VerUsuarioModalComponent, { static: false })
   verDetalleClienteModal: VerUsuarioModalComponent;
-  constructor(private clienteService: ClienteService, private router: Router, private alert: UtilAlertService) {}
+  constructor(
+    private clienteService: ClienteService,
+    private router: Router,
+    private alert: UtilAlertService
+  ) {}
 
   ngOnInit() {
     this.cargarData();
