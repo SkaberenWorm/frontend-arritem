@@ -63,7 +63,9 @@ export class DepartamentoListComponent implements OnInit {
    * @param departamentos
    */
   agregarDepartamentos(departamentos: Array<Departamento>) {
+    this.listaDepartamentos = [];
     departamentos.forEach(depto => {
+      this.listaDepartamentos
       this.listaDepartamentos.push(depto);
       this.listaTemporal.push(depto);
     });

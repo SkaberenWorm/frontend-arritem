@@ -14,42 +14,7 @@
                 <div class="tab-content">
                   <div class="tab-pane active">
                     <div class="row justify-content-center">
-                      <div class="col-sm-6">
-                        <ngb-carousel *ngIf="images" class="mb-3 w-400 mx-auto">
-                          <ng-template ngbSlide>
-                            <div class="picsum-img-wrapper">
-                              <img [src]="images[0]" class="img-carousel" alt="Random first slide" src-fallback="./assets/img/default-img.png" />
-                            </div>
-                            <div class="carousel-caption">
-                              <p>This carousel uses customized default values.</p>
-                            </div>
-                          </ng-template>
-                          <ng-template ngbSlide>
-                            <div class="picsum-img-wrapper">
-                              <img [src]="images[1]" class="img-carousel" alt="Random second slide" src-fallback="./assets/img/default-img.png" />
-                            </div>
-                            <div class="carousel-caption">
-                              <p>This carousel doesn't pause or resume on mouse events</p>
-                            </div>
-                          </ng-template>
-                          <ng-template ngbSlide>
-                            <div class="picsum-img-wrapper">
-                              <img [src]="images[2]" class="img-carousel" alt="Random third slide" src-fallback="./assets/img/default-img.png" />
-                            </div>
-                            <div class="carousel-caption">
-                              <p>This carousel uses customized default values.</p>
-                            </div>
-                          </ng-template>
-                          <ng-template ngbSlide>
-                            <div class="picsum-img-wrapper">
-                              <img [src]="images[3]" class="img-carousel" alt="Random fourth slide" src-fallback="./assets/img/default-img.png" />
-                            </div>
-                            <div class="carousel-caption">
-                              <p>This carousel uses customized default values.</p>
-                            </div>
-                          </ng-template>
-                        </ngb-carousel>
-                      </div>
+                      
                       <div class="col-sm-6 pt-3">
                         <div class="input-group flex-nowrap">
                           <div class="input-group-prepend">
@@ -117,6 +82,53 @@
                             </mat-error>
                           </mat-form-field>
                         </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="row">
+                          <div class="col-sm-8">
+                              <div class="input-group flex-nowrap">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                      <i class="material-icons">plus_one</i>
+                                    </span>
+                                  </div>
+                                  <mat-form-field class="example-full-width has-label ">
+                                    <input type="text" name="inventario" matInput placeholder="Agregar producto al inventario" formControlName="inventario" autocomplete="off" />
+                                  </mat-form-field>
+                                </div>
+                          </div>
+                          <div class="col-sm-4">
+                            <button type="button" (click)="agregarInventaio()" class="btn btn-primary btn-sm">Agregar</button>
+                          </div>
+                        </div>
+                        <table class="table table-hover">
+                          
+                            <thead class="text-primary text-left">
+                              <tr>
+                                <th></th>
+                                <th>Producto</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody class="text-center">
+                              <tr class="text-left py-0 mt-0" *ngFor="let detalle of listaInventario ; let index = index">
+                                <td class="text-left py-0 mt-0">{{ index+1 }}</td>
+                                <td *ngIf="!departamento.id > 0"class="text-left py-0 mt-0">{{ detalle.descripcion }}</td>
+                                <td *ngIf="departamento.id > 0"class="text-left py-0 mt-0">{{ detalle.inventario.descripcion }}</td>
+                                <td class="text-left py-0 mt-0">
+                                  <div class="btn-group" role="group" aria-label="Basic example">
+                                   
+                                    <a *ngIf="!departamento.id > 0" (click)="eliminarInventario(index)" routerLink=".">
+                                      <i class="material-icons text-danger">close</i>
+                                    </a>
+                                    <a *ngIf="departamento.id > 0" (click)="eliminarInventario(index,detalle.inventario.id)" routerLink=".">
+                                      <i class="material-icons text-danger">close</i>
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
                       </div>
                       <hr class="w-100" />
                       <div class="col-md-10 mt-md-3"></div>

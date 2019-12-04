@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ResultadoProc } from 'src/app/commons/interfaces/resultado-proc.interface';
 import { Departamento } from 'src/app/commons/models/departamento.model';
 import { map } from 'rxjs/operators';
+import { DetalleDeptoInventario } from 'src/app/commons/models/detalle_depto_inventario.model';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,15 @@ export class DepartamentoService {
         return result;
       })
     );
+  }
+
+  public guardarInventario(detalle: DetalleDeptoInventario): Observable<ResultadoProc<DetalleDeptoInventario>> {
+    
+    if (detalle.id > 0) {
+      return this.http.put<ResultadoProc<DetalleDeptoInventario>>(`${this.urlBase}/inventario`, detalle);
+    } else {
+      return this.http.post<ResultadoProc<DetalleDeptoInventario>>(`${this.urlBase}/inventario`, detalle);
+    }
   }
 
   public guardar(departamento: Departamento): Observable<ResultadoProc<Departamento>> {
